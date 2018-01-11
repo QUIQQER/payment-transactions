@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <global>
+        <table name="payment_transactions">
+            <field type="VARCHAR(250) NOT NULL PRIMARY KEY">txid</field>
+            <field type="DOUBLE NOT NULL">amount</field>
+            <field type="TEXT NULL">currency</field>
+            <field type="VARCHAR(250) NOT NULL">hash</field>
+            <field type="timestamp NULL default NULL">date</field>
+            <field type="INT NOT NULL">uid</field>
+            <field type="TEXT NULL">data</field>
+            <field type="VARCHAR(250) NULL">payment</field>
+        </table>
+    </global>
+</database>
