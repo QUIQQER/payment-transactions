@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+    <item parent="/extras/"
+          name="erp"
+          icon="fa fa-sun-o"
+    >
+        <locale group="quiqqer/payment-transactions" var="menu.erp.title"/>
+    </item>
+    <item parent="/extras/erp/"
+          name="transactions"
+          require="package/quiqqer/payment-transactions/bin/backend/controls/Panel"
+          icon="fa fa-money"
+    >
+        <locale group="quiqqer/payment-transactions" var="menu.erp.payment-transactions.title"/>
+    </item>
+
+</menu>

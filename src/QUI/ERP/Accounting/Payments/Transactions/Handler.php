@@ -25,6 +25,8 @@ class Handler extends QUI\Utils\Singleton
      *
      * @param string $txId - transaction ID
      * @return mixed
+     *
+     * @throws Exception
      */
     public function get($txId)
     {
@@ -39,6 +41,7 @@ class Handler extends QUI\Utils\Singleton
      * Return the data from a specific Transaction
      *
      * @param string $txId - transaction ID
+     * @return array
      * @throws Exception
      */
     public function getTxData($txId)
@@ -56,5 +59,34 @@ class Handler extends QUI\Utils\Singleton
         }
 
         return $result[0];
+    }
+
+    /**
+     * Retun all transactions from a specific hash
+     *
+     * @param string $hash
+     * @return array
+     */
+    public function getTransactionsByHash($hash)
+    {
+        $result = QUI::getDataBase()->fetch(array(
+            'select' => 'txid',
+            'from'   => Factory::table(),
+            'where'  => array(
+                'hash' => $hash
+            )
+        ));
+
+        $transactions = array();
+
+        foreach ($result as $entry) {
+            try {
+                $transactions[] = $this->get($entry['txid']);
+            } catch (Exception $Exception) {
+                QUI\System\Log::writeException($Exception);
+            }
+        }
+
+        return $transactions;
     }
 }

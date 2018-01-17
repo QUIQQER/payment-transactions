@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locales>
+    <groups name="quiqqer/payment-transactions" datatype="php,js">
+        <locale name="package.title">
+            <de><![CDATA[QUIQQER - Transaktionen]]></de>
+            <en><![CDATA[QUIQQER - Transactions]]></en>
+        </locale>
+
+        <locale name="menu.erp.title">
+            <de><![CDATA[Shop]]></de>
+            <en><![CDATA[Shop]]></en>
+        </locale>
+        <locale name="menu.erp.payment-transactions.title">
+            <de><![CDATA[Zahlungen]]></de>
+            <en><![CDATA[transactions]]></en>
+        </locale>
+    </groups>
+</locales>

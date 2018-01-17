@@ -16,7 +16,9 @@ class Transaction extends QUI\QDOM
 {
     /**
      * Transaction constructor.
+     *
      * @param string $txId - transaction ID
+     * @throws Exception
      */
     public function __construct($txId)
     {
