@@ -34,6 +34,8 @@ class Factory
      * @param bool $date - transaction date
      *
      * @return Transaction
+     *
+     * @throws Exception
      */
     public static function createPaymentTransaction(
         $amount,
