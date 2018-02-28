@@ -35,7 +35,7 @@ class Factory
      *
      * @return Transaction
      *
-     * @throws Exception
+     * @throws QUI\ERP\Accounting\Payments\Transactions\Exception
      */
     public static function createPaymentTransaction(
         $amount,
@@ -85,7 +85,11 @@ class Factory
 
         $Transaction = Handler::getInstance()->get($txId);
 
-        QUI::getEvents()->fireEvent('transactionCreate', array($Transaction));
+        try {
+            QUI::getEvents()->fireEvent('transactionCreate', array($Transaction));
+        } catch (QUI\Exception $Exception) {
+            QUI\System\Log::writeException($Exception);
+        }
 
         return $Transaction;
     }
