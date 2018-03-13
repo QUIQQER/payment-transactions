@@ -3,7 +3,10 @@
   "type": "quiqqer-module",
   "description": "QUIQQER ERP Payment Transactions",
   "version": "dev-master",
-  "license": "",
+  "license": [
+    "GPL-3.0+",
+    "PCSG QEL-1.0"
+  ],
   "authors": [
     {
       "name": "Henning Leutz",
