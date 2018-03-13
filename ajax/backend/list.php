@@ -29,6 +29,6 @@ QUI::$Ajax->registerFunction(
 
         return $Search->searchForGrid();
     },
-    array('params'),
+    ['params'],
     'Permission::checkAdminUser'
 );

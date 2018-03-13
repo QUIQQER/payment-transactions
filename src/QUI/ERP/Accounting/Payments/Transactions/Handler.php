@@ -18,13 +18,13 @@ class Handler extends QUI\Utils\Singleton
     /**
      * @var array
      */
-    protected $tx = array();
+    protected $tx = [];
 
     /**
      * Return a specific Transaction
      *
      * @param string $txId - transaction ID
-     * @return mixed
+     * @return Transaction
      *
      * @throws Exception
      */
@@ -46,13 +46,13 @@ class Handler extends QUI\Utils\Singleton
      */
     public function getTxData($txId)
     {
-        $result = QUI::getDataBase()->fetch(array(
+        $result = QUI::getDataBase()->fetch([
             'from'  => Factory::table(),
-            'where' => array(
+            'where' => [
                 'txid' => $txId
-            ),
+            ],
             'limit' => 1
-        ));
+        ]);
 
         if (!isset($result[0])) {
             throw new Exception('Transaction not found');
@@ -65,19 +65,19 @@ class Handler extends QUI\Utils\Singleton
      * Retun all transactions from a specific hash
      *
      * @param string $hash
-     * @return array
+     * @return Transaction[]
      */
     public function getTransactionsByHash($hash)
     {
-        $result = QUI::getDataBase()->fetch(array(
+        $result = QUI::getDataBase()->fetch([
             'select' => 'txid',
             'from'   => Factory::table(),
-            'where'  => array(
+            'where'  => [
                 'hash' => $hash
-            )
-        ));
+            ]
+        ]);
 
-        $transactions = array();
+        $transactions = [];
 
         foreach ($result as $entry) {
             try {

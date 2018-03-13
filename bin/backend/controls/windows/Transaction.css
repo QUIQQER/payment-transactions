@@ -1,0 +1,11 @@
+.quiqqer-payment-transactions-window-transaction {
+    padding: 10px;
+}
+
+.quiqqer-payment-transactions-window-transaction .data-table {
+    border: none;
+}
+
+.quiqqer-payment-transactions-window-transaction .field-container-item {
+    width: 100px;
+}

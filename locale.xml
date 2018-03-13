@@ -14,5 +14,31 @@
             <de><![CDATA[Zahlungen]]></de>
             <en><![CDATA[transactions]]></en>
         </locale>
+
+        <locale name="txid">
+            <de><![CDATA[TX-ID]]></de>
+            <en><![CDATA[TX ID]]></en>
+        </locale>
+        <locale name="hash">
+            <de><![CDATA[Vorgangs-Nr]]></de>
+            <en><![CDATA[Process number]]></en>
+        </locale>
+
+        <locale name="window.transaction.txid.title">
+            <de><![CDATA[Allgemeine Daten]]></de>
+            <en><![CDATA[General data]]></en>
+        </locale>
+        <locale name="window.transaction.tx.title">
+            <de><![CDATA[Allgemeine Daten]]></de>
+            <en><![CDATA[General data]]></en>
+        </locale>
+        <locale name="window.transaction.payment.title">
+            <de><![CDATA[Allgemeine Daten]]></de>
+            <en><![CDATA[General data]]></en>
+        </locale>
+        <locale name="window.transaction.amount">
+            <de><![CDATA[Betrag]]></de>
+            <en><![CDATA[Amount]]></en>
+        </locale>
     </groups>
 </locales>

@@ -42,7 +42,7 @@ class Factory
         Currency $Currency,
         $hash = false,
         $payment = '',
-        array $data = array(),
+        array $data = [],
         $User = null,
         $date = false
     ) {
@@ -72,7 +72,7 @@ class Factory
             $uuid = QUI::getUsers()->getSystemUser()->getId();
         }
 
-        QUI::getDataBase()->insert(self::table(), array(
+        QUI::getDataBase()->insert(self::table(), [
             'txid'     => $txId,
             'hash'     => $hash,
             'date'     => $date,
@@ -81,12 +81,12 @@ class Factory
             'currency' => json_encode($Currency->toArray()),
             'data'     => json_encode($data),
             'payment'  => $payment
-        ));
+        ]);
 
         $Transaction = Handler::getInstance()->get($txId);
 
         try {
-            QUI::getEvents()->fireEvent('transactionCreate', array($Transaction));
+            QUI::getEvents()->fireEvent('transactionCreate', [$Transaction]);
         } catch (QUI\Exception $Exception) {
             QUI\System\Log::writeException($Exception);
         }

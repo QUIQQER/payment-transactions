@@ -79,4 +79,26 @@ class Transaction extends QUI\QDOM
 
         return null;
     }
+
+    /**
+     * @return QUI\ERP\Currency\Currency
+     */
+    public function getCurrency()
+    {
+        $currency = $this->getAttribute('currency');
+
+        try {
+            if ($currency) {
+                $currency = json_decode($currency, true);
+
+                if (isset($currency['code'])) {
+                    return QUI\ERP\Currency\Handler::getCurrency($currency['code']);
+                }
+            }
+        } catch (QUI\Exception $Exception) {
+            QUI\System\Log::writeDebugException($Exception);
+        }
+
+        return QUI\ERP\Defaults::getCurrency();
+    }
 }

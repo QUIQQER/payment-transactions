@@ -18,12 +18,12 @@ class Search extends QUI\Utils\Singleton
     /**
      * @var array
      */
-    protected $filter = array();
+    protected $filter = [];
 
     /**
      * @var array
      */
-    protected $limit = array(0, 20);
+    protected $limit = [0, 20];
 
     /**
      * @var string
@@ -33,15 +33,15 @@ class Search extends QUI\Utils\Singleton
     /**
      * @var array
      */
-    protected $allowedFilters = array(
+    protected $allowedFilters = [
         'from',
         'to'
-    );
+    ];
 
     /**
      * @var array
      */
-    protected $cache = array();
+    protected $cache = [];
 
     /**
      * Set a filter
@@ -59,9 +59,8 @@ class Search extends QUI\Utils\Singleton
         }
 
         if (!is_array($value)) {
-            $value = array($value);
+            $value = [$value];
         }
-
     }
 
     /**
@@ -69,7 +68,7 @@ class Search extends QUI\Utils\Singleton
      */
     public function clearFilter()
     {
-        $this->filter = array();
+        $this->filter = [];
     }
 
     /**
@@ -80,7 +79,7 @@ class Search extends QUI\Utils\Singleton
      */
     public function limit($from, $to)
     {
-        $this->limit = array((int)$from, (int)$to);
+        $this->limit = [(int)$from, (int)$to];
     }
 
     /**
@@ -94,11 +93,9 @@ class Search extends QUI\Utils\Singleton
             case 'txid':
             case 'txid ASC':
             case 'txid DESC':
-
             case 'amount':
             case 'amount ASC':
             case 'amount DESC':
-
             case 'date':
             case 'date ASC':
             case 'date DESC':
@@ -127,7 +124,7 @@ class Search extends QUI\Utils\Singleton
      */
     public function searchForGrid()
     {
-        $this->cache = array();
+        $this->cache = [];
 
         // select display orders
         $orders = $this->executeQueryParams($this->getQuery());
@@ -153,10 +150,10 @@ class Search extends QUI\Utils\Singleton
         $result = $this->parseListForGrid($orders);
         $Grid   = new QUI\Utils\Grid();
 
-        return array(
+        return [
             'grid'  => $Grid->parseResult($result, $count),
             'total' => $count
-        );
+        ];
     }
 
     /**
@@ -179,25 +176,25 @@ class Search extends QUI\Utils\Singleton
 
         if (empty($this->filter)) {
             if ($count) {
-                return array(
+                return [
                     'query' => " SELECT COUNT(txid) AS count FROM {$table}",
-                    'binds' => array()
-                );
+                    'binds' => []
+                ];
             }
 
-            return array(
+            return [
                 'query' => "
                     SELECT *
                     FROM {$table}
                     ORDER BY {$order}
                     {$limit}
                 ",
-                'binds' => array()
-            );
+                'binds' => []
+            ];
         }
 
-        $where = array();
-        $binds = array();
+        $where = [];
+        $binds = [];
         $fc    = 0;
 
         foreach ($this->filter as $filter) {
@@ -216,10 +213,10 @@ class Search extends QUI\Utils\Singleton
                     continue;
             }
 
-            $binds[$bind] = array(
+            $binds[$bind] = [
                 'value' => $filter['value'],
                 'type'  => \PDO::PARAM_STR
-            );
+            ];
 
             $fc++;
         }
@@ -228,17 +225,17 @@ class Search extends QUI\Utils\Singleton
 
 
         if ($count) {
-            return array(
+            return [
                 "query" => "
                     SELECT COUNT(txid) AS count
                     FROM {$table}
                     {$whereQuery}
                 ",
                 'binds' => $binds
-            );
+            ];
         }
 
-        return array(
+        return [
             "query" => "
                 SELECT id
                 FROM {$table}
@@ -247,7 +244,7 @@ class Search extends QUI\Utils\Singleton
                 {$limit}
             ",
             'binds' => $binds
-        );
+        ];
     }
 
     /**
@@ -263,7 +260,7 @@ class Search extends QUI\Utils\Singleton
      * @return array
      * @throws QUI\Exception
      */
-    protected function executeQueryParams($queryData = array())
+    protected function executeQueryParams($queryData = [])
     {
         $PDO   = QUI::getDataBase()->getPDO();
         $binds = $queryData['binds'];
