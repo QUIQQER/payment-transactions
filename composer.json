@@ -1,8 +1,8 @@
 {
-  "name": "quiqqer/payment-transactions",
+  "name": "quiqqer\/payment-transactions",
   "type": "quiqqer-module",
   "description": "QUIQQER ERP Payment Transactions",
-  "version": "dev-master",
+  "version": "dev-dev",
   "license": [
     "GPL-3.0+",
     "PCSG QEL-1.0"
@@ -11,21 +11,21 @@
     {
       "name": "Henning Leutz",
       "email": "support@pcsg.de",
-      "homepage": "http://www.pcsg.de",
+      "homepage": "http:\/\/www.pcsg.de",
       "role": "Developer"
     }
   ],
   "support": {
     "email": "support@pcsg.de",
-    "url": "http://www.pcsg.de"
+    "url": "http:\/\/www.pcsg.de"
   },
   "require": {
     "php": ">=5.3",
-    "quiqqer/quiqqer": "*@dev"
+    "quiqqer\/quiqqer": "*@dev"
   },
   "autoload": {
     "psr-4": {
-      "QUI\\ERP\\Accounting\\Payments\\Transactions\\": "src/QUI/ERP/Accounting/Payments/Transactions"
+      "QUI\\ERP\\Accounting\\Payments\\Transactions\\": "src\/QUI\/ERP\/Accounting\/Payments\/Transactions"
     }
   }
 }

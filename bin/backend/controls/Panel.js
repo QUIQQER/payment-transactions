@@ -9,7 +9,9 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
     'qui/controls/desktop/Panel',
     'controls/grid/Grid',
     'Ajax',
-    'Locale'
+    'Locale',
+
+    'css!package/quiqqer/payment-transactions/bin/backend/controls/Panel.css'
 
 ], function (QUI, QUIPanel, Grid, QUIAjax, QUILocale) {
     "use strict";
@@ -80,6 +82,8 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
                 this.getContent()
             );
 
+
+            // #locale
             this.$Grid = new Grid(Container, {
                 pagination : true,
                 columnModel: [{
@@ -91,7 +95,8 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
                     header   : 'TX-ID',
                     dataIndex: 'txid',
                     dataType : 'string',
-                    width    : 260
+                    width    : 260,
+                    className: 'monospace'
                 }, {
                     header   : 'Amount',
                     dataIndex: 'amount',
@@ -106,7 +111,8 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
                     header   : 'Hash',
                     dataIndex: 'hash',
                     dataType : 'string',
-                    width    : 260
+                    width    : 260,
+                    className: 'monospace'
                 }, {
                     header   : 'User',
                     dataIndex: 'uid',
@@ -126,7 +132,8 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
                     header   : 'Payment',
                     dataIndex: 'payment',
                     dataType : 'string',
-                    width    : 100
+                    width    : 300,
+                    className: 'monospace'
                 }],
                 onrefresh  : this.refresh
             });
