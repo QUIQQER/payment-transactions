@@ -29,12 +29,12 @@
             <en><![CDATA[General data]]></en>
         </locale>
         <locale name="window.transaction.tx.title">
-            <de><![CDATA[Allgemeine Daten]]></de>
-            <en><![CDATA[General data]]></en>
+            <de><![CDATA[Wert]]></de>
+            <en><![CDATA[Amount]]></en>
         </locale>
         <locale name="window.transaction.payment.title">
-            <de><![CDATA[Allgemeine Daten]]></de>
-            <en><![CDATA[General data]]></en>
+            <de><![CDATA[Zahlungsart]]></de>
+            <en><![CDATA[Payment type]]></en>
         </locale>
         <locale name="window.transaction.amount">
             <de><![CDATA[Betrag]]></de>

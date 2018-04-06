@@ -20,6 +20,7 @@ QUI::$Ajax->registerFunction(
 
         $attributes['amount_formatted'] = $Currency->format($attributes['amount']);
         $attributes['data']             = json_decode($attributes['data'], true);
+        $attributes['payment']          = $Transaction->getPayment()->toArray();
 
         return $attributes;
     },
