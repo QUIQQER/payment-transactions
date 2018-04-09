@@ -87,49 +87,49 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
             this.$Grid = new Grid(Container, {
                 pagination : true,
                 columnModel: [{
-                    header   : 'Date',
+                    header   : QUILocale.get('quiqqer/system', 'date'),
                     dataIndex: 'date',
                     dataType : 'string',
                     width    : 140
                 }, {
-                    header   : 'TX-ID',
+                    header   : QUILocale.get(lg, 'txid'),
                     dataIndex: 'txid',
                     dataType : 'string',
                     width    : 260,
                     className: 'monospace'
                 }, {
-                    header   : 'Amount',
+                    header   : QUILocale.get(lg, 'grid.amount'),
                     dataIndex: 'amount',
                     dataType : 'numeric',
                     width    : 100
                 }, {
-                    header   : 'Currency',
+                    header   : QUILocale.get(lg, 'grid.currency'),
                     dataIndex: 'currency_code',
                     dataType : 'string',
                     width    : 60
                 }, {
-                    header   : 'Hash',
+                    header   : QUILocale.get(lg, 'hash'),
                     dataIndex: 'hash',
                     dataType : 'string',
                     width    : 260,
                     className: 'monospace'
                 }, {
-                    header   : 'User',
+                    header   : QUILocale.get('quiqqer/system', 'user_id'),
                     dataIndex: 'uid',
                     dataType : 'numeric',
                     width    : 100
                 }, {
-                    header   : 'Username',
+                    header   : QUILocale.get('quiqqer/system', 'username'),
                     dataIndex: 'username',
                     dataType : 'string',
                     width    : 100
                 }, {
-                    header   : 'Name',
+                    header   : QUILocale.get('quiqqer/system', 'name'),
                     dataIndex: 'user_name',
                     dataType : 'string',
                     width    : 140
                 }, {
-                    header   : 'Payment',
+                    header   : QUILocale.get(lg, 'grid.payment'),
                     dataIndex: 'payment',
                     dataType : 'string',
                     width    : 300,
