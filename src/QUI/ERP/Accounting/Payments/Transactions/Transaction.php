@@ -53,6 +53,16 @@ class Transaction extends QUI\QDOM
     }
 
     /**
+     * Return the amount of the transaction in formatted style
+     *
+     * @return string
+     */
+    public function getAmountFormatted()
+    {
+        return $this->getCurrency()->format($this->getAmount());
+    }
+
+    /**
      * Return the transaction date
      * - Y-m-d H:i:s
      *
@@ -100,5 +110,23 @@ class Transaction extends QUI\QDOM
         }
 
         return QUI\ERP\Defaults::getCurrency();
+    }
+
+    /**
+     * Return the transaction as text (for presentation)
+     *
+     * @param null $Locale
+     * @return array|string
+     */
+    public function parseToText($Locale = null)
+    {
+        if ($Locale === null) {
+            $Locale = QUI::getLocale();
+        }
+
+        return $Locale->get('quiqqer/payment-transactions', 'transaction.to.text', [
+            'amount' => $this->getAmountFormatted(),
+            'txid'   => $this->getTxId()
+        ]);
     }
 }

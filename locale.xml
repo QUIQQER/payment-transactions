@@ -40,5 +40,9 @@
             <de><![CDATA[Betrag]]></de>
             <en><![CDATA[Amount]]></en>
         </locale>
+        <locale name="transaction.to.text">
+            <de><![CDATA[Zahlung von [amount] - TX-ID: [txid]]]></de>
+            <en><![CDATA[Payment off [amount] - TX ID: [txid]]]></en>
+        </locale>
     </groups>
 </locales>
