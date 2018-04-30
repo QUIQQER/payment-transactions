@@ -88,7 +88,8 @@ class Factory
         try {
             QUI::getEvents()->fireEvent('transactionCreate', [$Transaction]);
         } catch (QUI\Exception $Exception) {
-            QUI\System\Log::writeException($Exception);
+            QUI\System\Log::writeRecursive($Exception->getMessage());
+            QUI\System\Log::writeRecursive($Exception->getTraceAsString());
         }
 
         return $Transaction;

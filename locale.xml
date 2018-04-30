@@ -29,12 +29,12 @@
             <en><![CDATA[General data]]></en>
         </locale>
         <locale name="window.transaction.tx.title">
-            <de><![CDATA[Allgemeine Daten]]></de>
-            <en><![CDATA[General data]]></en>
+            <de><![CDATA[Wert]]></de>
+            <en><![CDATA[Amount]]></en>
         </locale>
         <locale name="window.transaction.payment.title">
-            <de><![CDATA[Allgemeine Daten]]></de>
-            <en><![CDATA[General data]]></en>
+            <de><![CDATA[Zahlungsart]]></de>
+            <en><![CDATA[Payment type]]></en>
         </locale>
         <locale name="window.transaction.amount">
             <de><![CDATA[Betrag]]></de>
@@ -43,6 +43,21 @@
         <locale name="transaction.to.text">
             <de><![CDATA[Zahlung von [amount] - TX-ID: [txid]]]></de>
             <en><![CDATA[Payment off [amount] - TX ID: [txid]]]></en>
+        </locale>
+    </groups>
+
+    <groups name="quiqqer/payment-transactions" datatype="js">
+        <locale name="grid.amount">
+            <de><![CDATA[Betrag]]></de>
+            <en><![CDATA[Amount]]></en>
+        </locale>
+        <locale name="grid.currency">
+            <de><![CDATA[Währung]]></de>
+            <en><![CDATA[Currency]]></en>
+        </locale>
+        <locale name="grid.payment">
+            <de><![CDATA[Zahlungsweise]]></de>
+            <en><![CDATA[Payment method]]></en>
         </locale>
     </groups>
 </locales>
