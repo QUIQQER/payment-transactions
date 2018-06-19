@@ -19,7 +19,11 @@
             <de><![CDATA[TX-ID]]></de>
             <en><![CDATA[TX ID]]></en>
         </locale>
-        <locale name="hash">
+        <locale name="grid.hash">
+            <de><![CDATA[Hash]]></de>
+            <en><![CDATA[Hash]]></en>
+        </locale>
+        <locale name="global_process_id">
             <de><![CDATA[Vorgangs-Nr]]></de>
             <en><![CDATA[Process number]]></en>
         </locale>

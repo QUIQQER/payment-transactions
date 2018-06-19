@@ -108,8 +108,8 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
                     dataType : 'string',
                     width    : 60
                 }, {
-                    header   : QUILocale.get(lg, 'hash'),
-                    dataIndex: 'hash',
+                    header   : QUILocale.get('quiqqer/erp', 'global_process_id'),
+                    dataIndex: 'global_process_id',
                     dataType : 'string',
                     width    : 260,
                     className: 'monospace'
@@ -134,6 +134,10 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
                     dataType : 'string',
                     width    : 300,
                     className: 'monospace'
+                }, {
+                    dataIndex: 'hash',
+                    dataType : 'string',
+                    hidden   : true
                 }],
                 onrefresh  : this.refresh
             });
