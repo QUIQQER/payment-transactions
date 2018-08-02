@@ -25,13 +25,15 @@ class Factory
     }
 
     /**
+     * Create a new payment transaction
+     *
      * @param int|float $amount
      * @param Currency $Currency - currency
      * @param string|bool $hash - invoice / order hash
      * @param string $payment - name of the Payment
      * @param array $data - variable, optional data
      * @param null $User - user which execute the transaction, or from who the transaction comes from
-     * @param bool $date - transaction date
+     * @param bool|int|string $date - transaction date, 0000-00-00 || 0000-00-00 00:00:00 || Unix Timestamp
      *
      * @return Transaction
      *
@@ -57,6 +59,11 @@ class Factory
         }
 
         // date
+        if (QUI\Utils\Security\Orthos::checkMySqlDateSyntax($date) ||
+            QUI\Utils\Security\Orthos::checkMySqlDatetimeSyntax($date)) {
+            $date = strtotime($date);
+        }
+
         if (!is_numeric($date)) {
             $date = time();
         }
