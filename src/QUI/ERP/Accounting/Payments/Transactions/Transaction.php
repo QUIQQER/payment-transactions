@@ -15,6 +15,11 @@ use QUI;
 class Transaction extends QUI\QDOM
 {
     /**
+     * @var null|array
+     */
+    protected $data = [];
+
+    /**
      * Transaction constructor.
      *
      * @param string $txId - transaction ID
@@ -24,6 +29,16 @@ class Transaction extends QUI\QDOM
     {
         $data = Handler::getInstance()->getTxData($txId);
         $this->setAttributes($data);
+
+        $data = $this->getAttribute('data');
+
+        if ($data) {
+            $this->data = json_decode($data, true);
+        }
+
+        if (!is_array($this->data)) {
+            $this->data = [];
+        }
     }
 
     /**
@@ -128,5 +143,112 @@ class Transaction extends QUI\QDOM
             'amount' => $this->getAmountFormatted(),
             'txid'   => $this->getTxId()
         ]);
+    }
+
+    /**
+     * Execute a refund of this transaction
+     *
+     * @param float|integer $amount
+     * @param string $message
+     *
+     * @throws Exception
+     */
+    public function refund($amount, $message = '')
+    {
+        /* @var $Payment QUI\ERP\Accounting\Payments\Api\AbstractPayment */
+        $Payment = $this->getPayment();
+
+        if ($Payment->refundSupport()) {
+            throw new Exception([
+                'quiqqer/payment-transactions',
+                'exception.payment.has.no.refund'
+            ]);
+        }
+
+        if (!empty($message)) {
+            $message = QUI\Utils\Security\Orthos::clear($message);
+        }
+
+        $amount = $this->cleanupAmount($amount);
+
+        if ($amount === null) {
+            throw new Exception([
+                'quiqqer/payment-transactions',
+                'exception.amount.is.null'
+            ]);
+        }
+
+        $result = $Payment->refund($this, $amount, $message);
+
+        // @todo
+        // Transaktion muss dann ein refund flag bekommen (transaction data -> json?)
+        // Transaktion wird von Transaktionsmanager angelegt
+
+
+        $this->setData('refund', 1);
+        $this->updateData();
+    }
+
+    /**
+     * Cleans the amount value
+     *
+     * @param string|int|float $value
+     * @return float|mixed|null
+     */
+    protected function cleanupAmount($value)
+    {
+        if (trim($value) === '') {
+            return null;
+        }
+
+        if (is_float($value)) {
+            return round($value, 8);
+        }
+
+        $localeCode = QUI::getLocale()->getLocalesByLang(
+            QUI::getLocale()->getCurrent()
+        );
+
+        $Formatter = new \NumberFormatter($localeCode[0], \NumberFormatter::DECIMAL);
+
+        return $Formatter->parse($value);
+    }
+
+    /**
+     * Set a data entry
+     *
+     * @param $key
+     * @param $value
+     */
+    protected function setData($key, $value)
+    {
+        $this->data[$key] = $value;
+    }
+
+    /**
+     * Save the data to the database
+     */
+    protected function updateData()
+    {
+        QUI::getDataBase()->update(Factory::table(), [
+            'data' => json_encode($this->data)
+        ], [
+            'txid' => $this->getTxId()
+        ]);
+    }
+
+    /**
+     * Return
+     *
+     * @param $key
+     * @return mixed
+     */
+    protected function getData($key)
+    {
+        if (isset($this->data[$key])) {
+            return $this->data[$key];
+        }
+
+        return null;
     }
 }
