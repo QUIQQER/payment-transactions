@@ -170,6 +170,8 @@ class Transaction extends QUI\QDOM
             $message = QUI\Utils\Security\Orthos::clear($message);
         }
 
+
+        // refund check
         $amount = $this->cleanupAmount($amount);
 
         if ($amount === null) {
@@ -179,17 +181,27 @@ class Transaction extends QUI\QDOM
             ]);
         }
 
-        // @todo wenn refundet, dann schauen wieviel
+        $refunded       = $this->getData('refund');
+        $refundedAmount = $this->getData('refundAmount');
 
-        $result = $Payment->refund($this, $amount, $message);
+        if (!$refundedAmount) {
+            $refundedAmount = 0;
+        }
 
-        // @todo
-        // Transaktion muss dann ein refund flag bekommen (transaction data -> json?)
-        // Transaktion wird von Transaktionsmanager angelegt
+        if ($refunded) {
+            $originalAmount = $this->getAmount();
+            $refundedAmount = floatval($refundedAmount) + floatval($amount);
 
+            if ($originalAmount < $refundedAmount) {
+                throw new Exception([
+                    'quiqqer/payment-transactions',
+                    'exception.refund.to.high'
+                ]);
+            }
+        }
 
-        $this->setData('refund', 1);
-        $this->updateData();
+        // execute the refund
+        $Payment->refund($this, $amount, $message);
     }
 
     /**
@@ -217,21 +229,26 @@ class Transaction extends QUI\QDOM
         return $Formatter->parse($value);
     }
 
+    //region data
+
     /**
      * Set a data entry
      *
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param mixed $value
      */
-    protected function setData($key, $value)
+    public function setData($key, $value)
     {
         $this->data[$key] = $value;
     }
 
     /**
-     * Save the data to the database
+     * Save the data field to the database
+     *
+     * This method cant change anything related to the transaction data
+     * it will save only the extra data
      */
-    protected function updateData()
+    public function updateData()
     {
         QUI::getDataBase()->update(Factory::table(), [
             'data' => json_encode($this->data)
@@ -241,12 +258,12 @@ class Transaction extends QUI\QDOM
     }
 
     /**
-     * Return
+     * Will return a specific extra data entry from the transaction
      *
-     * @param $key
-     * @return mixed
+     * @param string $key
+     * @return mixed|null - null =  not found
      */
-    protected function getData($key)
+    public function getData($key)
     {
         if (isset($this->data[$key])) {
             return $this->data[$key];
@@ -254,4 +271,6 @@ class Transaction extends QUI\QDOM
 
         return null;
     }
+
+    //endregion data
 }

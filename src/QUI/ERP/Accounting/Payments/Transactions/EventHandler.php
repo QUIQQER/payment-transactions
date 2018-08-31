@@ -8,6 +8,7 @@ namespace QUI\ERP\Accounting\Payments\Transactions;
 
 use QUI;
 use QUI\ERP\Accounting\Invoice\InvoiceTemporary;
+use QUI\ERP\Accounting\Payments\Api\AbstractPayment;
 
 /**
  * Class EventHandler
@@ -55,5 +56,26 @@ class EventHandler
                 QUI\System\Log::writeDebugException($Exception);
             }
         }
+    }
+
+    /**
+     * @param QUI\ERP\Accounting\Payments\Transactions\Transaction $Transaction
+     * @param AbstractPayment $Payment
+     */
+    public static function onTransactionSuccessfullyRefunded(
+        QUI\ERP\Accounting\Payments\Transactions\Transaction $Transaction,
+        AbstractPayment $Payment
+    ) {
+        $alreadyFunded = $Transaction->getData('refundAmount');
+
+        if (!$alreadyFunded) {
+            $alreadyFunded = 0;
+        }
+
+        $alreadyFunded = floatval($alreadyFunded) + floatval($Transaction->getAmount());
+
+        $Transaction->setData('refund', 1);
+        $Transaction->setData('refundAmount', $alreadyFunded);
+        $Transaction->updateData();
     }
 }

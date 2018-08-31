@@ -3,4 +3,7 @@
     <event on="onQuiqqerInvoiceTemporaryInvoicePostBegin"
            fire="\QUI\ERP\Accounting\Payments\Transactions\EventHandler::onQuiqqerInvoiceTemporaryInvoicePostBegin"
     />
+    <event on="onTransactionSuccessfullyRefunded"
+           fire="\QUI\ERP\Accounting\Payments\Transactions\EventHandler::onTransactionSuccessfullyRefunded"
+    />
 </events>

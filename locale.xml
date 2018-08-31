@@ -82,5 +82,13 @@
             <de><![CDATA[Rückzahlung ist 0. Daher wird keine Rückzahlung durchgeführt.]]></de>
             <en><![CDATA[Refund is 0, therefore no refund is made.]]></en>
         </locale>
+        <locale name="exception.refund.to.high">
+            <de><![CDATA[
+            Die Rückzahlung kann nicht durchgeführt werden. Da diese den Urpsrungsbetrag übersteigen würde.
+            ]]></de>
+            <en><![CDATA[
+            The refund cannot be made. Since this would exceed the original amount.
+            ]]></en>
+        </locale>
     </groups>
 </locales>
