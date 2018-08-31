@@ -64,4 +64,23 @@
             <en><![CDATA[Payment method]]></en>
         </locale>
     </groups>
+
+    <groups name="quiqqer/payment-transactions" datatype="php">
+        <locale name="invoice.history.refund">
+            <de><![CDATA[Rückzahlung durchgeführt. [amount] [currency] - #[txid]]]></de>
+            <en><![CDATA[Refund executed. [amount] [currency] - #[txid]]]></en>
+        </locale>
+        <locale name="invoice.history.refund.exception">
+            <de><![CDATA[Fehler bei Rückzahlung. [message]]]></de>
+            <en><![CDATA[Error during refund. [message]]]></en>
+        </locale>
+        <locale name="exception.payment.has.no.refund">
+            <de><![CDATA[Zahlungsweise [payment] unterstützt keine Rückzahlung.]]></de>
+            <en><![CDATA[payment] does not support refund.]]></en>
+        </locale>
+        <locale name="exception.amount.is.null">
+            <de><![CDATA[Rückzahlung ist 0. Daher wird keine Rückzahlung durchgeführt.]]></de>
+            <en><![CDATA[Refund is 0, therefore no refund is made.]]></en>
+        </locale>
+    </groups>
 </locales>

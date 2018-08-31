@@ -161,7 +161,8 @@ class Transaction extends QUI\QDOM
         if ($Payment->refundSupport()) {
             throw new Exception([
                 'quiqqer/payment-transactions',
-                'exception.payment.has.no.refund'
+                'exception.payment.has.no.refund',
+                ['payment' => $Payment->getTitle()]
             ]);
         }
 
@@ -177,6 +178,8 @@ class Transaction extends QUI\QDOM
                 'exception.amount.is.null'
             ]);
         }
+
+        // @todo wenn refundet, dann schauen wieviel
 
         $result = $Payment->refund($this, $amount, $message);
 
