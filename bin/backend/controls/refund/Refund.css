@@ -1,0 +1,16 @@
+.quiqqer-payment-transactions-refund {
+    position: relative;
+}
+
+/** transactions
+ ========================================== */
+
+.quiqqer-payment-transactions-refund-transaction {
+    position: relative;
+}
+
+.quiqqer-payment-transactions-refund-transaction .comment label,
+.quiqqer-payment-transactions-refund-transaction .comment textarea {
+    height: 120px;
+    width: 100% !important;
+}

@@ -101,4 +101,41 @@ class Factory
 
         return $Transaction;
     }
+
+    /**
+     * Create a refund transaction
+     *
+     * @param int|float $amount
+     * @param Currency $Currency
+     * @param bool $hash
+     * @param string $payment
+     * @param array $data
+     * @param null $User
+     * @param bool $date
+     *
+     * @return Transaction
+     *
+     * @throws Exception
+     */
+    public static function createPaymentRefundTransaction(
+        $amount,
+        Currency $Currency,
+        $hash = false,
+        $payment = '',
+        array $data = [],
+        $User = null,
+        $date = false
+    ) {
+        $amount = $amount * -1; // for the internal system the amount must be the opposite
+
+        return self::createPaymentTransaction(
+            $amount,
+            $Currency,
+            $hash,
+            $payment,
+            $data,
+            $User,
+            $date
+        );
+    }
 }

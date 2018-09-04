@@ -43,6 +43,7 @@ class Transaction extends QUI\QDOM
 
     /**
      * Return the order / invoice hash
+     * (global_process_id)
      *
      * @return string
      */

@@ -63,6 +63,19 @@
             <de><![CDATA[Zahlungsweise]]></de>
             <en><![CDATA[Payment method]]></en>
         </locale>
+
+        <locale name="btn.actions">
+            <de><![CDATA[Aktionen]]></de>
+            <en><![CDATA[Actions]]></en>
+        </locale>
+        <locale name="btn.refund">
+            <de><![CDATA[Rückzahlung]]></de>
+            <en><![CDATA[Refund]]></en>
+        </locale>
+        <locale name="quiqqer.refund.window.title">
+            <de><![CDATA[Rückzahlung für #[txid]]]></de>
+            <en><![CDATA[Refund for #[txid]]]></en>
+        </locale>
     </groups>
 
     <groups name="quiqqer/payment-transactions" datatype="php">

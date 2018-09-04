@@ -7,13 +7,14 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
 
     'qui/QUI',
     'qui/controls/desktop/Panel',
+    'qui/controls/buttons/Button',
     'controls/grid/Grid',
     'Ajax',
     'Locale',
 
     'css!package/quiqqer/payment-transactions/bin/backend/controls/Panel.css'
 
-], function (QUI, QUIPanel, Grid, QUIAjax, QUILocale) {
+], function (QUI, QUIPanel, QUIButton, Grid, QUIAjax, QUILocale) {
     "use strict";
 
     var lg = 'quiqqer/payment-transactions';
@@ -28,7 +29,8 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
             'openAdd',
             'openRemove',
             '$onCreate',
-            '$onInject'
+            '$onInject',
+            'openRefund'
         ],
 
         options: {
@@ -39,7 +41,8 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
         initialize: function (options) {
             this.parent(options);
 
-            this.$Grid = null;
+            this.$Grid         = null;
+            this.$ButtonRefund = null;
 
             this.addEvents({
                 onCreate: this.$onCreate,
@@ -52,6 +55,7 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
          * event : on create
          */
         $onCreate: function () {
+            var self = this;
 
             // Buttons
             this.addButton({
@@ -69,7 +73,7 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
 
             this.addButton({
                 name     : 'remove',
-                text     : 'Korrektur',
+                text     : 'Korrektur', // #locale
                 textimage: 'fa fa-trash-o',
                 disabled : true,
                 events   : {
@@ -77,13 +81,38 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
                 }
             });
 
+            var Actions = new QUIButton({
+                name      : 'actions',
+                text      : QUILocale.get(lg, 'btn.actions'),
+                menuCorner: 'topRight',
+                styles    : {
+                    'float': 'right'
+                }
+            });
+
+            Actions.appendChild({
+                name    : 'refund',
+                icon    : 'fa fa-money',
+                text    : QUILocale.get(lg, 'btn.refund'),
+                disabled: true,
+                events  : {
+                    onClick: function () {
+                        self.openRefund(
+                            self.$Grid.getSelectedData()[0].txid
+                        );
+                    }
+                }
+            });
+
+            this.addButton(Actions);
+
+            this.$ButtonRefund = Actions.getChildren('refund')[0];
+
             // Grid
             var Container = new Element('div').inject(
                 this.getContent()
             );
 
-
-            // #locale
             this.$Grid = new Grid(Container, {
                 pagination : true,
                 columnModel: [{
@@ -109,7 +138,7 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
                     width    : 60
                 }, {
                     header   : QUILocale.get('quiqqer/erp', 'global_process_id'),
-                    dataIndex: 'global_process_id',
+                    dataIndex: 'hash',
                     dataType : 'string',
                     width    : 260,
                     className: 'monospace'
@@ -141,6 +170,17 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
                 }],
                 onrefresh  : this.refresh
             });
+
+            this.$Grid.addEvents({
+                onClick   : function () {
+                    self.$ButtonRefund.enable();
+                },
+                onDblClick: function () {
+                    self.openTransaction(
+                        self.$Grid.getSelectedData()[0].txid
+                    );
+                }
+            });
         },
 
         /**
@@ -165,6 +205,7 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
             }
 
             var size = Body.getSize();
+
             this.$Grid.setHeight(size.y - 40);
             this.$Grid.setWidth(size.x - 40);
         },
@@ -176,6 +217,8 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
          */
         refresh: function () {
             var self = this;
+
+            self.$ButtonRefund.disable();
 
             return new Promise(function (resolve, reject) {
                 QUIAjax.get('package_quiqqer_payment-transactions_ajax_backend_list', function (result) {
@@ -194,6 +237,21 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
 
         /**
          * Open the add dialog
+         *
+         * @param {String} txid
+         */
+        openTransaction: function (txid) {
+            require([
+                'package/quiqqer/payment-transactions/bin/backend/controls/windows/Transaction'
+            ], function (Transaction) {
+                new Transaction({
+                    txid: txid
+                }).open();
+            });
+        },
+
+        /**
+         * Open the add dialog
          */
         openAdd: function () {
 
@@ -204,6 +262,21 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
          */
         openRemove: function () {
 
+        },
+
+        /**
+         * Open the refund dialog
+         *
+         * @param {String} txid
+         */
+        openRefund: function (txid) {
+            require([
+                'package/quiqqer/payment-transactions/bin/backend/controls/refund/Window'
+            ], function (RefundWindow) {
+                new RefundWindow({
+                    txid: txid
+                }).open();
+            });
         }
     });
 });

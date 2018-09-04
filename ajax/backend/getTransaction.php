@@ -13,7 +13,7 @@
 QUI::$Ajax->registerFunction(
     'package_quiqqer_payment-transactions_ajax_backend_getTransaction',
     function ($txId) {
-        $Handler     = \QUI\ERP\Accounting\Payments\Transactions\Handler::getInstance();
+        $Handler     = QUI\ERP\Accounting\Payments\Transactions\Handler::getInstance();
         $Transaction = $Handler->get($txId);
         $Currency    = $Transaction->getCurrency();
         $attributes  = $Transaction->getAttributes();

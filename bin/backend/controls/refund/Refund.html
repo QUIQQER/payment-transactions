@@ -1,0 +1,90 @@
+<div class="quiqqer-payment-transactions-refund-transaction">
+    <table class="data-table data-table-flexbox">
+        <thead>
+        <tr>
+            <th>
+                Daten
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <label class="field-container">
+                    <span class="field-container-item">
+                        Transaktions-Code
+                    </span>
+                    <span class="field-container-field" name="tx-id">{{txId}}</span>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="field-container">
+                    <span class="field-container-item">
+                        Ursprüngliche Zahlung
+                    </span>
+                    <span class="field-container-field" name="amount">{{amount}} {{currency}}</span>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="field-container">
+                    <span class="field-container-item">
+                        Rückzahlungsbetrag
+                    </span>
+                    <input type="text"
+                           class="field-container-field"
+                           name="refund"
+                           value="{{amount}}"
+                    />
+                </label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="data-table data-table-flexbox comment">
+        <thead>
+        <tr>
+            <th>Mitteilung an Käufer</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <label>
+                    <textarea name="customer-message"></textarea>
+                </label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="data-table data-table-flexbox information">
+        <thead>
+        <tr>
+            <th>Vorgangsdaten</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="information-invoice">
+            <td>
+                <label class="field-container">
+                    <span class="field-container-item">Rechnung</span>
+                    <span class="field-container-field information-invoice-field"></span>
+                </label>
+            </td>
+        </tr>
+        <tr class="information-order">
+            <td>
+                <label class="field-container">
+                    <span class="field-container-item">Bestellung</span>
+                    <span class="field-container-field information-order-field"></span>
+                </label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
