@@ -68,14 +68,37 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Refund'
                         Transaction: Transaction,
                         txId       : Transaction.txid,
                         amount     : Transaction.amount,
-                        currency   : Transaction.currency.sign
+                        currency   : Transaction.currency.sign,
+
+                        titleData        : QUILocale.get(lg, 'quiqqer.refund.data'),
+                        titleTxId        : QUILocale.get(lg, 'quiqqer.refund.txid'),
+                        titleOrigPayment : QUILocale.get(lg, 'quiqqer.refund.original.payment'),
+                        titleRefundAmount: QUILocale.get(lg, 'quiqqer.refund.refundAmount'),
+                        titleMessage     : QUILocale.get(lg, 'quiqqer.refund.message'),
+                        titleProcessData : QUILocale.get(lg, 'quiqqer.refund.processData'),
+                        titleInvoice     : QUILocale.get(lg, 'quiqqer.refund.titleInvoice'),
+                        titleOrder       : QUILocale.get(lg, 'quiqqer.refund.titleOrder')
                     }));
 
                     if (typeof process.invoice === 'undefined') {
                         self.getElm().getElements('.information-invoice').destroy();
                     } else {
                         self.getElm().getElement('.information-invoice-field').set({
-                            html: process.invoice.id_prefix + process.invoice.id
+                            html  : process.invoice.id_prefix + process.invoice.id,
+                            events: {
+                                click: function () {
+                                    self.fireEvent('loadBegin');
+
+                                    require(['package/quiqqer/invoice/bin/backend/utils/Panels'], function (Panels) {
+                                        Panels.openInvoice(
+                                            process.invoice.id_prefix + process.invoice.id
+                                        ).then(function () {
+                                            self.fireEvent('loadEnd');
+                                            self.fireEvent('openedPanel');
+                                        });
+                                    });
+                                }
+                            }
                         });
                     }
 

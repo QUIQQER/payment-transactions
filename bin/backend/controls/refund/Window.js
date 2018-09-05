@@ -72,6 +72,14 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Window'
 
                     onOpenRefund: function () {
                         self.getButton('submit').enable();
+                    },
+
+                    loadBegin: function () {
+                        self.Loader.show();
+                    },
+
+                    loadEnd: function () {
+                        self.Loader.hide();
                     }
                 }
             }).inject(this.getContent());

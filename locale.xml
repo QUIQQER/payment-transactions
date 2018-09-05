@@ -76,6 +76,38 @@
             <de><![CDATA[Rückzahlung für #[txid]]]></de>
             <en><![CDATA[Refund for #[txid]]]></en>
         </locale>
+        <locale name="quiqqer.refund.data">
+            <de><![CDATA[Daten]]></de>
+            <en><![CDATA[Data]]></en>
+        </locale>
+        <locale name="quiqqer.refund.txid">
+            <de><![CDATA[Transaktions-Code]]></de>
+            <en><![CDATA[Transaction code]]></en>
+        </locale>
+        <locale name="quiqqer.refund.original.payment">
+            <de><![CDATA[Ursprüngliche Zahlung]]></de>
+            <en><![CDATA[Original payment]]></en>
+        </locale>
+        <locale name="quiqqer.refund.refundAmount">
+            <de><![CDATA[Rückzahlungsbetrag]]></de>
+            <en><![CDATA[Refund amount]]></en>
+        </locale>
+        <locale name="quiqqer.refund.message">
+            <de><![CDATA[Mitteilung an den Käufer]]></de>
+            <en><![CDATA[Message to the buyer]]></en>
+        </locale>
+        <locale name="quiqqer.refund.processData">
+            <de><![CDATA[Vorgangsdaten]]></de>
+            <en><![CDATA[Process data]]></en>
+        </locale>
+        <locale name="quiqqer.refund.titleInvoice">
+            <de><![CDATA[Rechnung]]></de>
+            <en><![CDATA[Invoice]]></en>
+        </locale>
+        <locale name="quiqqer.refund.titleOrder">
+            <de><![CDATA[Bestellung]]></de>
+            <en><![CDATA[Order]]></en>
+        </locale>
     </groups>
 
     <groups name="quiqqer/payment-transactions" datatype="php">
