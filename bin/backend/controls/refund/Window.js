@@ -7,9 +7,10 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Window'
     'qui/QUI',
     'qui/controls/windows/Confirm',
     'Locale',
-    'package/quiqqer/payment-transactions/bin/backend/controls/refund/Refund'
+    'package/quiqqer/payment-transactions/bin/backend/controls/refund/Refund',
+    'package/quiqqer/payment-transactions/bin/backend/Transactions'
 
-], function (QUI, QUIConfirm, QUILocale, Refund) {
+], function (QUI, QUIConfirm, QUILocale, Refund, Transactions) {
     "use strict";
 
     var lg = 'quiqqer/payment-transactions';
@@ -37,8 +38,12 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Window'
             });
 
             this.setAttributes({
-                icon : 'fa fa-money',
-                title: ''
+                icon     : 'fa fa-money',
+                title    : '',
+                ok_button: {
+                    text     : QUILocale.get(lg, 'quiqqer.refund.submit'),
+                    textimage: 'fa fa-money'
+                }
             });
 
             this.$Refund = null;
@@ -52,6 +57,7 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Window'
 
             this.Loader.show();
             this.getContent().set('html', '');
+            this.getButton('submit').disable();
 
             this.setAttribute('title', QUILocale.get(lg, 'quiqqer.refund.window.title', {
                 txid: self.getAttribute('txid')
@@ -63,7 +69,21 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Window'
                 txid  : this.getAttribute('txid'),
                 events: {
                     onLoad: function () {
-                        self.Loader.hide();
+                        Transactions.hasRefund(self.getAttribute('txid')).then(function (hasRefund) {
+                            if (hasRefund) {
+                                self.getButton('submit').enable();
+                            } else {
+                                new Element('div', {
+                                    'class': 'messages-message message-attention animated flash',
+                                    html   : QUILocale.get(lg, 'message.transaction.not.refundable'),
+                                    styles : {
+                                        marginBottom: 20
+                                    }
+                                }).inject(self.getContent(), 'top');
+                            }
+
+                            self.Loader.hide();
+                        });
                     },
 
                     onOpenTransactionList: function () {
@@ -103,10 +123,21 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Window'
 
             this.$Refund.submit().then(function () {
                 self.fireEvent('submit', [self]);
-                self.Loader.show();
                 self.close();
-            }).catch(function () {
+            }).catch(function (err) {
                 self.Loader.hide();
+
+                if (typeof err.getMessage !== 'undefined') {
+                    self.getContent().getElements('.message-error').destroy();
+
+                    new Element('div', {
+                        'class': 'messages-message message-error animated flash',
+                        html   : err.getMessage(),
+                        styles : {
+                            marginBottom: 20
+                        }
+                    }).inject(self.getContent(), 'top');
+                }
             });
         }
     });

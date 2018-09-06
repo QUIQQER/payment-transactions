@@ -32,6 +32,16 @@
             <td>
                 <label class="field-container">
                     <span class="field-container-item">
+                        {{titlePayment}}
+                    </span>
+                    <span class="field-container-field" name="payment">{{payment}}</span>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="field-container refund-value">
+                    <span class="field-container-item">
                         {{titleRefundAmount}}
                     </span>
                     <input type="text"
@@ -39,6 +49,9 @@
                            name="refund"
                            value="{{amount}}"
                     />
+                    <span class="field-container-item refund-value-currency">
+                        <span>€</span>
+                    </span>
                 </label>
             </td>
         </tr>
@@ -55,7 +68,7 @@
         <tr>
             <td>
                 <label>
-                    <textarea name="customer-message"></textarea>
+                    <textarea name="customer-message" autocomplete="off"></textarea>
                 </label>
             </td>
         </tr>
@@ -69,6 +82,14 @@
         </tr>
         </thead>
         <tbody>
+        <tr class="refunds">
+            <td>
+                <label class="field-container">
+                    <span class="field-container-item">{{titleRefunds}}</span>
+                    <span class="field-container-field information-refunds"></span>
+                </label>
+            </td>
+        </tr>
         <tr class="information-invoice">
             <td>
                 <label class="field-container">

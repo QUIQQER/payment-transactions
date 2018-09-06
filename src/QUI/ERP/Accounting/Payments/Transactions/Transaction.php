@@ -189,6 +189,9 @@ class Transaction extends QUI\QDOM
             $refundedAmount = 0;
         }
 
+        QUI\System\Log::writeRecursive($amount);
+        QUI\System\Log::writeRecursive($refunded);
+
         if ($refunded) {
             $originalAmount = $this->getAmount();
             $refundedAmount = floatval($refundedAmount) + floatval($amount);

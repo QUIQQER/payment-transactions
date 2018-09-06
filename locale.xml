@@ -108,6 +108,22 @@
             <de><![CDATA[Bestellung]]></de>
             <en><![CDATA[Order]]></en>
         </locale>
+        <locale name="quiqqer.refund.titleRefunds">
+            <de><![CDATA[Vorhandene Rückzahlungen]]></de>
+            <en><![CDATA[Existing refunds]]></en>
+        </locale>
+        <locale name="quiqqer.refund.submit">
+            <de><![CDATA[Rückzahlung durchführen]]></de>
+            <en><![CDATA[Execute refund]]></en>
+        </locale>
+        <locale name="quiqqer.refund.payment">
+            <de><![CDATA[Zahlungsweise]]></de>
+            <en><![CDATA[Payment method]]></en>
+        </locale>
+        <locale name="message.transaction.not.refundable">
+            <de><![CDATA[Für diese Zahlung kann keine Rückzahlung durchgeführt werden.]]></de>
+            <en><![CDATA[No refund can be made for this payment.]]></en>
+        </locale>
     </groups>
 
     <groups name="quiqqer/payment-transactions" datatype="php">

@@ -45,6 +45,49 @@ define('package/quiqqer/payment-transactions/bin/backend/classes/Transactions', 
                     txId     : txId
                 });
             });
+        },
+
+        /**
+         * Execute a refund
+         *
+         * @param {String} txid
+         * @param {String} refund - amount
+         * @param {String} [message] - refund message, message of for the customer
+         *
+         * @return {Promise}
+         */
+        refund: function (txid, refund, message) {
+            message = message || '';
+
+            if (!refund) {
+                return Promise.reject('Refund is empty');
+            }
+
+            return new Promise(function (resolve, reject) {
+                QUIAjax.post('package_quiqqer_payment-transactions_ajax_backend_refund', resolve, {
+                    'package': 'quiqqer/payment-transactions',
+                    onError  : reject,
+                    txId     : txid,
+                    refund   : refund,
+                    message  : message
+                });
+            });
+        },
+
+        /**
+         * Is the transaction refundable?
+         *
+         * @param txId
+         * @return {Promise}
+         */
+        hasRefund: function (txId) {
+            return new Promise(function (resolve, reject) {
+                QUIAjax.post('package_quiqqer_payment-transactions_ajax_backend_hasRefund', resolve, {
+                    'package': 'quiqqer/payment-transactions',
+                    onError  : reject,
+                    txId     : txId
+                });
+            });
         }
     });
 });

@@ -59,7 +59,13 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Refund'
         $onInject: function () {
             var self = this;
 
-            Transactions.getTransaction(self.getAttribute('txid')).then(function (Transaction) {
+            Promise.all([
+                Transactions.getTransaction(self.getAttribute('txid')),
+                Transactions.hasRefund(self.getAttribute('txid'))
+            ]).then(function (data) {
+                var Transaction = data[0],
+                    hasRefund   = data[1];
+
                 Transaction.currency = JSON.decode(Transaction.currency);
                 Transaction.data     = JSON.decode(Transaction.data);
 
@@ -69,30 +75,42 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Refund'
                         txId       : Transaction.txid,
                         amount     : Transaction.amount,
                         currency   : Transaction.currency.sign,
+                        payment    : Transaction.payment.title,
 
                         titleData        : QUILocale.get(lg, 'quiqqer.refund.data'),
+                        titlePayment     : QUILocale.get(lg, 'quiqqer.refund.payment'),
                         titleTxId        : QUILocale.get(lg, 'quiqqer.refund.txid'),
                         titleOrigPayment : QUILocale.get(lg, 'quiqqer.refund.original.payment'),
                         titleRefundAmount: QUILocale.get(lg, 'quiqqer.refund.refundAmount'),
                         titleMessage     : QUILocale.get(lg, 'quiqqer.refund.message'),
                         titleProcessData : QUILocale.get(lg, 'quiqqer.refund.processData'),
                         titleInvoice     : QUILocale.get(lg, 'quiqqer.refund.titleInvoice'),
-                        titleOrder       : QUILocale.get(lg, 'quiqqer.refund.titleOrder')
+                        titleOrder       : QUILocale.get(lg, 'quiqqer.refund.titleOrder'),
+                        titleRefunds     : QUILocale.get(lg, 'quiqqer.refund.titleRefunds')
                     }));
 
                     if (typeof process.invoice === 'undefined') {
                         self.getElm().getElements('.information-invoice').destroy();
                     } else {
+                        var invoiceId = '';
+
+                        if (typeof process.invoice.id_prefix !== 'undefined') {
+                            invoiceId = invoiceId + process.invoice.id_prefix;
+                        }
+
+                        if (typeof process.invoice.id !== 'undefined') {
+                            invoiceId = invoiceId + process.invoice.id;
+                        }
+
                         self.getElm().getElement('.information-invoice-field').set({
-                            html  : process.invoice.id_prefix + process.invoice.id,
+                            html  : invoiceId,
                             events: {
                                 click: function () {
+                                    // open the invoice panel
                                     self.fireEvent('loadBegin');
 
                                     require(['package/quiqqer/invoice/bin/backend/utils/Panels'], function (Panels) {
-                                        Panels.openInvoice(
-                                            process.invoice.id_prefix + process.invoice.id
-                                        ).then(function () {
+                                        Panels.openInvoice(invoiceId).then(function () {
                                             self.fireEvent('loadEnd');
                                             self.fireEvent('openedPanel');
                                         });
@@ -102,11 +120,57 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Refund'
                         });
                     }
 
-                    if (typeof process.order === 'undefined') {
+                    if (typeof process.order === 'undefined' ||
+                        typeof process.order.temporary_invoice_id !== 'undefined') {
                         self.getElm().getElements('.information-order').destroy();
                     } else {
-                        self.getElm().getElement('.information-invoice-field').set({
-                            html: process.order.id_prefix + process.order.id
+                        console.log(process.order);
+
+                        self.getElm().getElement('.information-order-field').set({
+                            'data-temp': 'orderId',
+                            html       : process.order.id,
+                            events     : {
+                                click: function () {
+                                    // open the order panel
+                                    self.fireEvent('loadBegin');
+                                }
+                            }
+                        });
+                    }
+
+                    var Amount = self.getElm().getElement('[name="refund"]');
+
+                    Amount.focus();
+                    Amount.value = '';                 // workaround for, put cursor to the end
+                    Amount.value = Transaction.amount; // workaround for, put cursor to the end
+
+                    if (!hasRefund) {
+                        Amount.value    = '---';
+                        Amount.disabled = true;
+
+                        self.getElm().getElement('textarea').disabled = true;
+                    }
+
+                    // transactions
+                    if (typeof process.transactions !== 'undefined' && process.transactions.length > 1) {
+                        var Refunds = self.getElm().getElement('.refunds');
+                        var List    = new Element('ul');
+
+                        var i, len, p, currency;
+
+                        for (i = 0, len = process.transactions.length; i < len; i++) {
+                            p        = process.transactions[i];
+                            currency = JSON.decode(p.currency);
+
+                            new Element('li', {
+                                html: p.txid + ' - ' + p.amount + ' ' + currency.sign
+                            }).inject(List);
+                        }
+
+                        List.inject(Refunds.getElement('.information-refunds'));
+                    } else {
+                        self.getElm().getElement('.refunds').setStyles({
+                            display: 'none'
                         });
                     }
 
@@ -115,9 +179,6 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Refund'
                     'package': 'quiqqer/erp',
                     hash     : Transaction.hash
                 });
-
-                console.log(Transaction);
-
             });
         },
 
@@ -141,10 +202,25 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Refund'
             }
 
             return {
-                txid   : this.getAttribute('txid').$txId,
+                txid   : this.getAttribute('txid'),
                 refund : refund,
                 message: message
             };
+        },
+
+        /**
+         * submit the refund
+         *
+         * @return {Promise}
+         */
+        submit: function () {
+            var values = this.getValues();
+
+            return Transactions.refund(
+                values.txid,
+                values.refund,
+                values.message
+            );
         }
     });
 });
