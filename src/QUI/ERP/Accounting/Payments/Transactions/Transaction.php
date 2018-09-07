@@ -159,7 +159,7 @@ class Transaction extends QUI\QDOM
         /* @var $Payment QUI\ERP\Accounting\Payments\Api\AbstractPayment */
         $Payment = $this->getPayment();
 
-        if ($Payment->refundSupport()) {
+        if (!$Payment->refundSupport()) {
             throw new Exception([
                 'quiqqer/payment-transactions',
                 'exception.payment.has.no.refund',
@@ -188,9 +188,6 @@ class Transaction extends QUI\QDOM
         if (!$refundedAmount) {
             $refundedAmount = 0;
         }
-
-        QUI\System\Log::writeRecursive($amount);
-        QUI\System\Log::writeRecursive($refunded);
 
         if ($refunded) {
             $originalAmount = $this->getAmount();
