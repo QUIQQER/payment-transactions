@@ -138,7 +138,7 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
                     width    : 60
                 }, {
                     header   : QUILocale.get('quiqqer/erp', 'global_process_id'),
-                    dataIndex: 'hash',
+                    dataIndex: 'global_process_id',
                     dataType : 'string',
                     width    : 260,
                     className: 'monospace'

@@ -62,7 +62,7 @@ class Handler extends QUI\Utils\Singleton
     }
 
     /**
-     * Retun all transactions from a specific hash
+     * Return all transactions from a specific hash
      *
      * @param string $hash
      * @return Transaction[]
@@ -74,6 +74,35 @@ class Handler extends QUI\Utils\Singleton
             'from'   => Factory::table(),
             'where'  => [
                 'hash' => $hash
+            ]
+        ]);
+
+        $transactions = [];
+
+        foreach ($result as $entry) {
+            try {
+                $transactions[] = $this->get($entry['txid']);
+            } catch (Exception $Exception) {
+                QUI\System\Log::writeException($Exception);
+            }
+        }
+
+        return $transactions;
+    }
+
+    /**
+     * Return all transactions from a specific process
+     *
+     * @param string $processId
+     * @return Transaction[]
+     */
+    public function getTransactionsByProcessId($processId)
+    {
+        $result = QUI::getDataBase()->fetch([
+            'select' => 'txid',
+            'from'   => Factory::table(),
+            'where'  => [
+                'global_process_id' => $processId
             ]
         ]);
 

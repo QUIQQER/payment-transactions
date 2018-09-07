@@ -42,14 +42,24 @@ class Transaction extends QUI\QDOM
     }
 
     /**
-     * Return the order / invoice hash
-     * (global_process_id)
+     * Return the order / invoice hash to which the transaction applies
      *
      * @return string
      */
     public function getHash()
     {
         return $this->getAttribute('hash');
+    }
+
+    /**
+     * Return the global process id to which the transaction applies
+     * The global process is
+     *
+     * @return string
+     */
+    public function getGlobalProcessId()
+    {
+        return $this->getAttribute('global_process_id');
     }
 
     /**
@@ -151,10 +161,11 @@ class Transaction extends QUI\QDOM
      *
      * @param float|integer $amount
      * @param string $message
+     * @param string|bool $hash
      *
      * @throws Exception
      */
-    public function refund($amount, $message = '')
+    public function refund($amount, $message = '', $hash = false)
     {
         /* @var $Payment QUI\ERP\Accounting\Payments\Api\AbstractPayment */
         $Payment = $this->getPayment();
@@ -202,7 +213,7 @@ class Transaction extends QUI\QDOM
         }
 
         // execute the refund
-        $Payment->refund($this, $amount, $message);
+        $Payment->refund($this, $amount, $message, $hash);
     }
 
     /**

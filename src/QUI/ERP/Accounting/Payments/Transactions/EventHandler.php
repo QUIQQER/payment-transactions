@@ -34,7 +34,12 @@ class EventHandler
 
         try {
             $Transaction = Handler::getInstance()->get($refund['txid']);
-            $Transaction->refund($refund['refund'], $refund['message']);
+
+            $Transaction->refund(
+                $refund['refund'],
+                $refund['message'],
+                $Invoice->getHash()
+            );
 
             $Invoice->addHistory(
                 QUI::getLocale()->get('quiqqer/payment-transactions', 'invoice.history.refund', [
