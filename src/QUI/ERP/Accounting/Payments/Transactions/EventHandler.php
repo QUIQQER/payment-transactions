@@ -34,9 +34,15 @@ class EventHandler
 
         try {
             $Transaction = Handler::getInstance()->get($refund['txid']);
+            $amount      = $refund['refund'];
+            $sum         = $Invoice->getAttribute('sum');
+
+            if ($sum && $sum <= $amount) {
+                $amount = $sum;
+            }
 
             $Transaction->refund(
-                $refund['refund'],
+                $amount,
                 $refund['message'],
                 $Invoice->getHash()
             );
