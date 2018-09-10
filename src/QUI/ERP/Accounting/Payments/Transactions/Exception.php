@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file contains QUI\ERP\Accounting\Payments\Transactions\Factory
+ * This file contains QUI\ERP\Accounting\Payments\Transactions\Exception
  */
 
 namespace QUI\ERP\Accounting\Payments\Transactions;
