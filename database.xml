@@ -11,6 +11,7 @@
             <field type="INT NOT NULL">uid</field>
             <field type="TEXT NULL">data</field>
             <field type="VARCHAR(250) NULL">payment</field>
+            <field type="INT NULL">status</field>
         </table>
     </global>
 </database>

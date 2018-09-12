@@ -16,6 +16,28 @@ use QUI;
 class Handler extends QUI\Utils\Singleton
 {
     /**
+     * This is the default status of an transaction
+     */
+    const STATUS_DEFAULT = 0;
+
+    /**
+     * Transaction is successfully transmitted and completed
+     */
+    const STATUS_COMPLETE = 1;
+
+    /**
+     * Pending status
+     * can happen if the transaction has not been completed yet.
+     * payment provider still needs to confirm
+     */
+    const STATUS_PENDING = 2;
+
+    /**
+     * Some error occurred
+     */
+    const STATUS_ERROR = 3;
+
+    /**
      * @var array
      */
     protected $tx = [];

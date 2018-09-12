@@ -6,4 +6,7 @@
     <event on="onTransactionSuccessfullyRefunded"
            fire="\QUI\ERP\Accounting\Payments\Transactions\EventHandler::onTransactionSuccessfullyRefunded"
     />
+    <event on="onPackageSetup"
+           fire="\QUI\ERP\Accounting\Payments\Transactions\EventHandler::onPackageSetup"
+    />
 </events>

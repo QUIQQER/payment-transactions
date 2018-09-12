@@ -116,6 +116,12 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
             this.$Grid = new Grid(Container, {
                 pagination : true,
                 columnModel: [{
+                    header   : QUILocale.get(lg, 'grid.status'),
+                    dataIndex: 'status_node',
+                    dataType : 'node',
+                    width    : 50,
+                    className: 'centering'
+                }, {
                     header   : QUILocale.get('quiqqer/system', 'date'),
                     dataIndex: 'date',
                     dataType : 'string',
@@ -222,6 +228,31 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
 
             return new Promise(function (resolve, reject) {
                 QUIAjax.get('package_quiqqer_payment-transactions_ajax_backend_list', function (result) {
+                    var i, len, icon;
+
+                    for (i = 0, len = result.grid.data.length; i < len; i++) {
+                        icon = 'fa fa-minus';
+
+                        switch (parseInt(result.grid.data[i].status)) {
+
+                            case 1:
+                                icon = 'fa fa-check';
+                                break;
+
+                            case 2:
+                                icon = 'fa fa-clock-o';
+                                break;
+
+                            case 3:
+                                icon = 'fa fa-bolt';
+                                break;
+                        }
+
+                        result.grid.data[i].status_node = new Element('span', {
+                            'class': icon
+                        });
+                    }
+
                     self.$Grid.setData(result.grid);
                     resolve();
                 }, {

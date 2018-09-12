@@ -94,7 +94,8 @@ class Factory
             'currency'          => json_encode($Currency->toArray()),
             'data'              => json_encode($data),
             'payment'           => $payment,
-            'global_process_id' => $globalProcessId
+            'global_process_id' => $globalProcessId,
+            'status'            => Handler::STATUS_DEFAULT
         ]);
 
         $Transaction = Handler::getInstance()->get($txId);

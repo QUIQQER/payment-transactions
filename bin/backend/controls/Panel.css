@@ -2,3 +2,11 @@
 .monospace {
     font-family: monospace, monospace;
 }
+
+.centering {
+    text-align: center !important;
+}
+
+.centering .fa {
+    margin-right: 4px;
+}

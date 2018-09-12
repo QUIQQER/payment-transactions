@@ -63,6 +63,10 @@
             <de><![CDATA[Zahlungsweise]]></de>
             <en><![CDATA[Payment method]]></en>
         </locale>
+        <locale name="grid.status">
+            <de><![CDATA[Status]]></de>
+            <en><![CDATA[Status]]></en>
+        </locale>
 
         <locale name="btn.actions">
             <de><![CDATA[Aktionen]]></de>

@@ -39,6 +39,8 @@ class Transaction extends QUI\QDOM
         if (!is_array($this->data)) {
             $this->data = [];
         }
+
+        $this->setAttribute('status', (int)$this->getAttribute('status'));
     }
 
     /**
@@ -97,6 +99,17 @@ class Transaction extends QUI\QDOM
     public function getDate()
     {
         return $this->getAttribute('date');
+    }
+
+    /**
+     * Status of the transaction
+     * - Handler::STATUS_*
+     *
+     * @return int
+     */
+    public function getStatus()
+    {
+        return (int)$this->getAttribute('status');
     }
 
     /**
@@ -214,6 +227,10 @@ class Transaction extends QUI\QDOM
 
         // execute the refund
         $Payment->refund($this, $amount, $message, $hash);
+
+        if ($this->getAttribute('status') === Handler::STATUS_DEFAULT) {
+            $this->complete();
+        }
     }
 
     /**
@@ -240,6 +257,77 @@ class Transaction extends QUI\QDOM
 
         return $Formatter->parse($value);
     }
+
+
+    //region status
+
+    /**
+     * Change the transaction status
+     *
+     * @param int $status - STATUS constants -> Handler::STATUS_*
+     */
+    public function changeStatus($status)
+    {
+        $status = (int)$status;
+
+        switch ($status) {
+            case Handler::STATUS_COMPLETE:
+                $this->complete();
+                break;
+
+            case Handler::STATUS_ERROR:
+                $this->error();
+                break;
+
+            case Handler::STATUS_PENDING:
+                $this->pending();
+                break;
+        }
+    }
+
+    /**
+     * Change the transaction status to complete
+     */
+    public function complete()
+    {
+        QUI::getDataBase()->update(Factory::table(), [
+            'status' => Handler::STATUS_COMPLETE
+        ], [
+            'txid' => $this->getTxId()
+        ]);
+
+        $this->setAttribute('status', Handler::STATUS_COMPLETE);
+    }
+
+    /**
+     * Change the transaction status to pending
+     */
+    public function pending()
+    {
+        QUI::getDataBase()->update(Factory::table(), [
+            'status' => Handler::STATUS_PENDING
+        ], [
+            'txid' => $this->getTxId()
+        ]);
+
+        $this->setAttribute('status', Handler::STATUS_PENDING);
+    }
+
+    /**
+     * Change the transaction status to error
+     */
+    public function error()
+    {
+        QUI::getDataBase()->update(Factory::table(), [
+            'status' => Handler::STATUS_ERROR
+        ], [
+            'txid' => $this->getTxId()
+        ]);
+
+        $this->setAttribute('status', Handler::STATUS_ERROR);
+    }
+
+    //endregion status
 
     //region data
 

@@ -18,6 +18,31 @@ use QUI\ERP\Accounting\Payments\Api\AbstractPayment;
 class EventHandler
 {
     /**
+     * @param QUI\Package\Package $Package
+     */
+    public static function onPackageSetup(QUI\Package\Package $Package)
+    {
+        if ($Package->getName() !== 'quiqqer/payment-transactions') {
+            return;
+        }
+
+        $result = QUI::getDataBase()->fetch([
+            'from'  => Factory::table(),
+            'where' => [
+                'status' => null
+            ]
+        ]);
+
+        foreach ($result as $entry) {
+            QUI::getDataBase()->update(
+                Factory::table(),
+                ['status' => Handler::STATUS_COMPLETE],
+                ['txid' => $entry['txid']]
+            );
+        }
+    }
+
+    /**
      * @param QUI\ERP\Accounting\Invoice\InvoiceTemporary $Invoice - CreditNote
      */
     public static function onQuiqqerInvoiceTemporaryInvoicePostBegin(InvoiceTemporary $Invoice)
