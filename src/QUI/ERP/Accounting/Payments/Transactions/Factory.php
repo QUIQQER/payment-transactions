@@ -95,7 +95,7 @@ class Factory
             'data'              => json_encode($data),
             'payment'           => $payment,
             'global_process_id' => $globalProcessId,
-            'status'            => Handler::STATUS_DEFAULT
+            'status'            => Handler::STATUS_COMPLETE
         ]);
 
         $Transaction = Handler::getInstance()->get($txId);
