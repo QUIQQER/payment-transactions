@@ -33,7 +33,12 @@ class Transaction extends QUI\QDOM
         $data = $this->getAttribute('data');
 
         if ($data) {
-            $this->data = json_decode($data, true);
+            $this->data = json_decode(QUI\Security\Encryption::decrypt($data), true);
+
+            // workaround for old data
+            if (!is_array($this->data)) {
+                $this->data = json_decode($data, true);
+            }
         }
 
         if (!is_array($this->data)) {
@@ -350,8 +355,16 @@ class Transaction extends QUI\QDOM
      */
     public function updateData()
     {
+        try {
+            $data = QUI\Security\Encryption::encrypt(json_encode($this->data));
+        } catch (QUI\Exception $Exception) {
+            QUI\System\Log::writeException($Exception);
+
+            $data = json_encode($this->data);
+        }
+
         QUI::getDataBase()->update(Factory::table(), [
-            'data' => json_encode($this->data)
+            'data' => $data
         ], [
             'txid' => $this->getTxId()
         ]);

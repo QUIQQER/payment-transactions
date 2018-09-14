@@ -27,7 +27,6 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
         Binds: [
             'refresh',
             'openAdd',
-            'openRemove',
             '$onCreate',
             '$onInject',
             'openRefund'
@@ -71,15 +70,15 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
                 type: 'separator'
             });
 
-            this.addButton({
-                name     : 'remove',
-                text     : 'Korrektur', // #locale
-                textimage: 'fa fa-trash-o',
-                disabled : true,
-                events   : {
-                    onClick: this.openRemove
-                }
-            });
+            // this.addButton({
+            //     name     : 'remove',
+            //     text     : 'Korrektur', // #locale
+            //     textimage: 'fa fa-trash-o',
+            //     disabled : true,
+            //     events   : {
+            //         onClick: this.openRemove
+            //     }
+            // });
 
             var Actions = new QUIButton({
                 name      : 'actions',
@@ -285,13 +284,6 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
          * Open the add dialog
          */
         openAdd: function () {
-
-        },
-
-        /**
-         * Open the remove dialog
-         */
-        openRemove: function () {
 
         },
 
