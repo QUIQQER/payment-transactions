@@ -33,12 +33,18 @@ class Transaction extends QUI\QDOM
         $data = $this->getAttribute('data');
 
         if ($data) {
-            $this->data = json_decode(QUI\Security\Encryption::decrypt($data), true);
+            if (!is_array($data)) {
+                $this->data = json_decode(QUI\Security\Encryption::decrypt($data), true);
+            } else {
+                $this->data = $data;
+            }
 
             // workaround for old data
             if (!is_array($this->data)) {
                 $this->data = json_decode($data, true);
             }
+
+            $this->setAttribute('data', $this->data);
         }
 
         if (!is_array($this->data)) {
@@ -345,6 +351,7 @@ class Transaction extends QUI\QDOM
     public function setData($key, $value)
     {
         $this->data[$key] = $value;
+        $this->setAttribute('data', $this->data);
     }
 
     /**
