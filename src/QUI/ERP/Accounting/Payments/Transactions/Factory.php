@@ -85,6 +85,14 @@ class Factory
             $uuid = QUI::getUsers()->getSystemUser()->getId();
         }
 
+        $data = '';
+
+        try {
+            $data = QUI\Security\Encryption::encrypt(json_encode($data));
+        } catch (\Exception $Exception) {
+            $data = json_encode($data);
+        }
+
         QUI::getDataBase()->insert(self::table(), [
             'txid'              => $txId,
             'hash'              => $hash,
@@ -92,7 +100,7 @@ class Factory
             'uid'               => $uuid,
             'amount'            => $amount,
             'currency'          => json_encode($Currency->toArray()),
-            'data'              => json_encode($data),
+            'data'              => $data,
             'payment'           => $payment,
             'global_process_id' => $globalProcessId,
             'status'            => Handler::STATUS_COMPLETE

@@ -65,7 +65,6 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/windows/Transa
             this.Loader.show();
 
             Transactions.getTransaction(this.getAttribute('txid')).then(function (data) {
-
                 data.locale_title_general = QUILocale.get(lg, 'window.transaction.txid.title');
                 data.locale_title_tx      = QUILocale.get(lg, 'window.transaction.tx.title');
                 data.locale_title_payment = QUILocale.get(lg, 'window.transaction.payment.title');

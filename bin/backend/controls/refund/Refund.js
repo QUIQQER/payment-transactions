@@ -67,7 +67,6 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Refund'
                     hasRefund   = data[1];
 
                 Transaction.currency = JSON.decode(Transaction.currency);
-                Transaction.data     = JSON.decode(Transaction.data);
 
                 QUIAjax.get('package_quiqqer_erp_ajax_getProcessInformation', function (process) {
                     self.getElm().set('html', Mustache.render(templateRefund, {
