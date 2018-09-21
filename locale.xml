@@ -149,10 +149,18 @@
         </locale>
         <locale name="exception.refund.to.high">
             <de><![CDATA[
-            Die Rückzahlung kann nicht durchgeführt werden. Da diese den Urpsrungsbetrag übersteigen würde.
+            Die Rückzahlung kann nicht durchgeführt werden, da diese den Ursprungsbetrag übersteigen würde.
             ]]></de>
             <en><![CDATA[
-            The refund cannot be made. Since this would exceed the original amount.
+            The refund cannot be made since this would exceed the original amount.
+            ]]></en>
+        </locale>
+        <locale name="exception.refund.not_allowed">
+            <de><![CDATA[
+            Die Rückzahlung kann auf Grund eines Fehlers nicht durchgeführt werden.
+            ]]></de>
+            <en><![CDATA[
+            The refund cannot be executed due to an error.
             ]]></en>
         </locale>
     </groups>

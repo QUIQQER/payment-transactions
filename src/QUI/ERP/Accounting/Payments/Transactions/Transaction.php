@@ -224,11 +224,26 @@ class Transaction extends QUI\QDOM
             $refundedAmount = 0;
         }
 
+        $originalAmount = $this->getAmount();
+
+        if (empty($originalAmount) || empty($amount)) {
+            throw new Exception([
+                'quiqqer/payment-transactions',
+                'exception.refund.not_allowed'
+            ]);
+        }
+
         if ($refunded) {
-            $originalAmount = $this->getAmount();
             $refundedAmount = floatval($refundedAmount) + floatval($amount);
 
             if ($originalAmount < $refundedAmount) {
+                throw new Exception([
+                    'quiqqer/payment-transactions',
+                    'exception.refund.to.high'
+                ]);
+            }
+        } else {
+            if ($originalAmount < floatval($amount)) {
                 throw new Exception([
                     'quiqqer/payment-transactions',
                     'exception.refund.to.high'

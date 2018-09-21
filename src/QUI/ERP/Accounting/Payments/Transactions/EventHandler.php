@@ -88,6 +88,13 @@ class EventHandler
                         'message' => $Exception->getMessage()
                     ])
                 );
+
+                QUI::getMessagesHandler()->sendError(
+                    QUI::getUserBySession(),
+                    QUI::getLocale()->get('quiqqer/payment-transactions', 'invoice.history.refund.exception', [
+                        'message' => $Exception->getMessage()
+                    ])
+                );
             } catch (QUI\Exception $Exception) {
                 QUI\System\Log::writeDebugException($Exception);
             }
