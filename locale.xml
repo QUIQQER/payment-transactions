@@ -157,10 +157,10 @@
         </locale>
         <locale name="exception.refund.not_allowed">
             <de><![CDATA[
-            Die Rückzahlung kann auf Grund eines Fehlers nicht durchgeführt werden.
+            Die Rückzahlung kann nicht durchgeführt werden, da der Wert der ursprünglichen Zahlung oder zurückzuzahlende Betrag leer ist.
             ]]></de>
             <en><![CDATA[
-            The refund cannot be executed due to an error.
+            The refund cannot be made because the value of the original payment or the amount to be refunded is empty.
             ]]></en>
         </locale>
     </groups>
