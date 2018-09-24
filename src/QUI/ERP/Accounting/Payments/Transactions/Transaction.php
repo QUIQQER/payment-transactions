@@ -113,17 +113,6 @@ class Transaction extends QUI\QDOM
     }
 
     /**
-     * Status of the transaction
-     * - Handler::STATUS_*
-     *
-     * @return int
-     */
-    public function getStatus()
-    {
-        return (int)$this->getAttribute('status');
-    }
-
-    /**
      * Return the payment if the transaction has one
      *
      * @return QUI\ERP\Accounting\Payments\Api\AbstractPayment|null
@@ -312,6 +301,17 @@ class Transaction extends QUI\QDOM
     }
 
     /**
+     * Status of the transaction
+     * - Handler::STATUS_*
+     *
+     * @return int
+     */
+    public function getStatus()
+    {
+        return (int)$this->getAttribute('status');
+    }
+
+    /**
      * Change the transaction status to complete
      */
     public function complete()
@@ -351,6 +351,26 @@ class Transaction extends QUI\QDOM
         ]);
 
         $this->setAttribute('status', Handler::STATUS_ERROR);
+    }
+
+    /**
+     * Return if the transaction is pending or not
+     *
+     * @return bool
+     */
+    public function isPending()
+    {
+        return $this->getStatus() === Handler::STATUS_PENDING;
+    }
+
+    /**
+     * Return if the transaction is complete or not
+     *
+     * @return bool
+     */
+    public function isComplete()
+    {
+        return $this->getStatus() === Handler::STATUS_COMPLETE;
     }
 
     //endregion status
