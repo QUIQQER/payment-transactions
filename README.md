@@ -47,3 +47,4 @@ Events
 ------
 
 -  onTransactionCreate [ Transaction ]
+-  quiqqerTransactionStatusChange [ Transaction ]

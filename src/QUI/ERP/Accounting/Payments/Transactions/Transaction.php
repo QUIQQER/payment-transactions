@@ -316,6 +316,8 @@ class Transaction extends QUI\QDOM
      */
     public function complete()
     {
+        $old = $this->getAttribute('status');
+
         QUI::getDataBase()->update(Factory::table(), [
             'status' => Handler::STATUS_COMPLETE
         ], [
@@ -323,6 +325,15 @@ class Transaction extends QUI\QDOM
         ]);
 
         $this->setAttribute('status', Handler::STATUS_COMPLETE);
+
+
+        if ($old !== Handler::STATUS_COMPLETE) {
+            try {
+                QUI::getEvents()->fireEvent('transactionStatusChange', [$this]);
+            } catch (\Exception $Exception) {
+                QUI\System\Log::writeException($Exception);
+            }
+        }
     }
 
     /**
@@ -330,6 +341,8 @@ class Transaction extends QUI\QDOM
      */
     public function pending()
     {
+        $old = $this->getAttribute('status');
+
         QUI::getDataBase()->update(Factory::table(), [
             'status' => Handler::STATUS_PENDING
         ], [
@@ -337,6 +350,15 @@ class Transaction extends QUI\QDOM
         ]);
 
         $this->setAttribute('status', Handler::STATUS_PENDING);
+
+
+        if ($old !== Handler::STATUS_PENDING) {
+            try {
+                QUI::getEvents()->fireEvent('transactionStatusChange', [$this]);
+            } catch (\Exception $Exception) {
+                QUI\System\Log::writeException($Exception);
+            }
+        }
     }
 
     /**
@@ -344,6 +366,8 @@ class Transaction extends QUI\QDOM
      */
     public function error()
     {
+        $old = $this->getAttribute('status');
+
         QUI::getDataBase()->update(Factory::table(), [
             'status' => Handler::STATUS_ERROR
         ], [
@@ -351,6 +375,15 @@ class Transaction extends QUI\QDOM
         ]);
 
         $this->setAttribute('status', Handler::STATUS_ERROR);
+
+
+        if ($old !== Handler::STATUS_ERROR) {
+            try {
+                QUI::getEvents()->fireEvent('transactionStatusChange', [$this]);
+            } catch (\Exception $Exception) {
+                QUI\System\Log::writeException($Exception);
+            }
+        }
     }
 
     /**
