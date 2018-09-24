@@ -59,8 +59,8 @@ class EventHandler
 
         try {
             $Transaction = Handler::getInstance()->get($refund['txid']);
-            $amount      = $refund['refund'];
-            $sum         = $Invoice->getAttribute('sum') * -1; // amount is positive for the dev api
+            $amount      = abs($refund['refund']);
+            $sum         = abs($Invoice->getAttribute('sum')); // amount is positive for the dev api
 
             if ($sum && $sum <= $amount) {
                 $amount = $sum;
