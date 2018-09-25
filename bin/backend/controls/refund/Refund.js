@@ -5,6 +5,7 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Refund'
     'qui/QUI',
     'qui/controls/Control',
     'package/quiqqer/payment-transactions/bin/backend/Transactions',
+    'package/quiqqer/erp/bin/backend/utils/Money',
     'Locale',
     'Ajax',
     'Mustache',
@@ -12,7 +13,7 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Refund'
     'text!package/quiqqer/payment-transactions/bin/backend/controls/refund/Refund.html',
 
     'css!package/quiqqer/payment-transactions/bin/backend/controls/refund/Refund.css'
-], function (QUI, QUIControl, Transactions, QUILocale, QUIAjax, Mustache, templateRefund) {
+], function (QUI, QUIControl, Transactions, MoneyUtils, QUILocale, QUIAjax, Mustache, templateRefund) {
     "use strict";
 
     var lg = 'quiqqer/payment-transactions';
@@ -141,7 +142,7 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Refund'
 
                     Amount.focus();
                     Amount.value = '';                 // workaround for, put cursor to the end
-                    Amount.value = Transaction.amount; // workaround for, put cursor to the end
+                    Amount.value = MoneyUtils.formatPrice(Transaction.amount); // workaround for, put cursor to the end
 
                     if (!hasRefund) {
                         Amount.value    = '---';
@@ -149,6 +150,10 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/refund/Refund'
 
                         self.getElm().getElement('textarea').disabled = true;
                     }
+
+                    Amount.addEvent('blur', function () {
+                        MoneyUtils.formatPrice(Amount.value);
+                    });
 
                     // transactions
                     if (typeof process.transactions !== 'undefined' && process.transactions.length > 1) {

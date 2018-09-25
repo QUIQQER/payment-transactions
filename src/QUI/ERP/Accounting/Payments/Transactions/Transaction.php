@@ -273,7 +273,6 @@ class Transaction extends QUI\QDOM
         return $Formatter->parse($value);
     }
 
-
     //region status
 
     /**

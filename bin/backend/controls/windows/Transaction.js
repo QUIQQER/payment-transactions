@@ -84,7 +84,8 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/windows/Transa
                 self.setAttribute('title', data.txid);
                 self.refresh();
                 self.Loader.hide();
-            }).catch(function () {
+            }).catch(function (err) {
+                console.error(err);
                 self.close();
             });
         }
