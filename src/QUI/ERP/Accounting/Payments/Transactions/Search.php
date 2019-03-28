@@ -52,13 +52,13 @@ class Search extends QUI\Utils\Singleton
      */
     public function setFilter($filter, $value)
     {
-        $keys = array_flip($this->allowedFilters);
+        $keys = \array_flip($this->allowedFilters);
 
         if (!isset($keys[$filter])) {
             return;
         }
 
-        if (!is_array($value)) {
+        if (!\is_array($value)) {
             $value = [$value];
         }
     }
@@ -139,7 +139,7 @@ class Search extends QUI\Utils\Singleton
         $oldLimit = $this->limit;
 
         $this->limit  = false;
-        $this->filter = array_filter($this->filter, function ($filter) {
+        $this->filter = \array_filter($this->filter, function ($filter) {
             return $filter['filter'] != 'paid_status';
         });
 
@@ -203,14 +203,11 @@ class Search extends QUI\Utils\Singleton
             switch ($filter['filter']) {
                 case 'from':
                     $where[] = 'date >= '.$bind;
-                    break;
+                    continue 2;
 
                 case 'to':
                     $where[] = 'date <= '.$bind;
-                    break;
-
-                default:
-                    continue;
+                    continue 2;
             }
 
             $binds[$bind] = [
@@ -221,7 +218,7 @@ class Search extends QUI\Utils\Singleton
             $fc++;
         }
 
-        $whereQuery = 'WHERE '.implode(' AND ', $where);
+        $whereQuery = 'WHERE '.\implode(' AND ', $where);
 
 
         if ($count) {
@@ -293,9 +290,8 @@ class Search extends QUI\Utils\Singleton
         $Users = QUI::getUsers();
 
         foreach ($data as $key => $entry) {
-            $data[$key]['amount']   = QUI\ERP\Money\Price::validatePrice($entry['amount']);
-            $data[$key]['currency'] = json_decode($entry['currency'], true);
-            $data[$key]['data']     = json_decode($entry['data'], true);
+            $data[$key]['currency'] = \json_decode($entry['currency'], true);
+            $data[$key]['data']     = \json_decode($entry['data'], true);
             $data[$key]['uid']      = (int)$entry['uid'];
 
             // user
@@ -310,6 +306,9 @@ class Search extends QUI\Utils\Singleton
             }
 
             // currency
+            $Currency = null;
+            $amount   = \floatval($entry['amount']);
+
             try {
                 $Currency = QUI\ERP\Currency\Handler::getCurrency(
                     $data[$key]['currency']['code']
@@ -318,6 +317,12 @@ class Search extends QUI\Utils\Singleton
                 $data[$key]['currency_code'] = $Currency->getCode();
             } catch (QUI\Exception $Exception) {
                 $data[$key]['currency_code'] = '---';
+            }
+
+            if ($Currency) {
+                $data[$key]['amount'] = $amount; //$Currency->amount($amount);
+            } else {
+                $data[$key]['amount'] = $amount;
             }
         }
 

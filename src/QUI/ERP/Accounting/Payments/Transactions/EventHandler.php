@@ -53,14 +53,14 @@ class EventHandler
             return;
         }
 
-        if (!is_array($refund)) {
+        if (!\is_array($refund)) {
             return;
         }
 
         try {
             $Transaction = Handler::getInstance()->get($refund['txid']);
-            $amount      = abs($refund['refund']);
-            $sum         = abs($Invoice->getAttribute('sum')); // amount is positive for the dev api
+            $amount      = \abs($refund['refund']);
+            $sum         = \abs($Invoice->getAttribute('sum')); // amount is positive for the dev api
 
             if ($sum && $sum <= $amount) {
                 $amount = $sum;
@@ -115,7 +115,7 @@ class EventHandler
             $alreadyFunded = 0;
         }
 
-        $alreadyFunded = floatval($alreadyFunded) + floatval($Transaction->getAmount());
+        $alreadyFunded = \floatval($alreadyFunded) + \floatval($Transaction->getAmount());
 
         $Transaction->setData('refund', 1);
         $Transaction->setData('refundAmount', $alreadyFunded);

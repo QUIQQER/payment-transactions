@@ -135,7 +135,8 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/Panel', [
                     header   : QUILocale.get(lg, 'grid.amount'),
                     dataIndex: 'amount',
                     dataType : 'numeric',
-                    width    : 100
+                    width    : 100,
+                    className: 'amountCell'
                 }, {
                     header   : QUILocale.get(lg, 'grid.currency'),
                     dataIndex: 'currency_code',

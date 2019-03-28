@@ -25,7 +25,7 @@
         </locale>
         <locale name="global_process_id">
             <de><![CDATA[Vorgangs-Nr]]></de>
-            <en><![CDATA[Process number]]></en>
+            <en><![CDATA[Processing-ID]]></en>
         </locale>
 
         <locale name="window.transaction.txid.title">
@@ -102,7 +102,7 @@
         </locale>
         <locale name="quiqqer.refund.processData">
             <de><![CDATA[Vorgangsdaten]]></de>
-            <en><![CDATA[Process data]]></en>
+            <en><![CDATA[Processing data]]></en>
         </locale>
         <locale name="quiqqer.refund.titleInvoice">
             <de><![CDATA[Rechnung]]></de>
@@ -161,6 +161,15 @@
             ]]></de>
             <en><![CDATA[
             The refund cannot be made because the value of the original payment or the amount to be refunded is empty.
+            ]]></en>
+        </locale>
+        <locale name="exception.something.went.wrong">
+            <de><![CDATA[
+            Es tut uns leid aber leider ist etwas schief gelaufen.
+            Bitte nehmen Sie kontakt mit einem Administrator auf.
+            ]]></de>
+            <en><![CDATA[
+            We're sorry, but something went wrong. Please contact an administrator.
             ]]></en>
         </locale>
     </groups>

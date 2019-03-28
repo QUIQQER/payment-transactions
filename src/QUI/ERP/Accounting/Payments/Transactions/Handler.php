@@ -64,17 +64,22 @@ class Handler extends QUI\Utils\Singleton
      *
      * @param string $txId - transaction ID
      * @return array
+     *
      * @throws Exception
      */
     public function getTxData($txId)
     {
-        $result = QUI::getDataBase()->fetch([
-            'from'  => Factory::table(),
-            'where' => [
-                'txid' => $txId
-            ],
-            'limit' => 1
-        ]);
+        try {
+            $result = QUI::getDataBase()->fetch([
+                'from'  => Factory::table(),
+                'where' => [
+                    'txid' => $txId
+                ],
+                'limit' => 1
+            ]);
+        } catch (QUI\Database\Exception $Exception) {
+            throw new Exception('Transaction not found');
+        }
 
         if (!isset($result[0])) {
             throw new Exception('Transaction not found');
@@ -91,13 +96,17 @@ class Handler extends QUI\Utils\Singleton
      */
     public function getTransactionsByHash($hash)
     {
-        $result = QUI::getDataBase()->fetch([
-            'select' => 'txid',
-            'from'   => Factory::table(),
-            'where'  => [
-                'hash' => $hash
-            ]
-        ]);
+        try {
+            $result = QUI::getDataBase()->fetch([
+                'select' => 'txid',
+                'from'   => Factory::table(),
+                'where'  => [
+                    'hash' => $hash
+                ]
+            ]);
+        } catch (QUI\Database\Exception $Exception) {
+            return [];
+        }
 
         $transactions = [];
 
@@ -120,13 +129,17 @@ class Handler extends QUI\Utils\Singleton
      */
     public function getTransactionsByProcessId($processId)
     {
-        $result = QUI::getDataBase()->fetch([
-            'select' => 'txid',
-            'from'   => Factory::table(),
-            'where'  => [
-                'global_process_id' => $processId
-            ]
-        ]);
+        try {
+            $result = QUI::getDataBase()->fetch([
+                'select' => 'txid',
+                'from'   => Factory::table(),
+                'where'  => [
+                    'global_process_id' => $processId
+                ]
+            ]);
+        } catch (QUI\Database\Exception $Exception) {
+            return [];
+        }
 
         $transactions = [];
 

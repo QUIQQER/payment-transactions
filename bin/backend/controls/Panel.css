@@ -10,3 +10,9 @@
 .centering .fa {
     margin-right: 4px;
 }
+
+.amountCell {
+    text-align: right !important;
+    padding-left: 0 !important;
+    padding-right: 5px;
+}

@@ -33,21 +33,21 @@ class Transaction extends QUI\QDOM
         $data = $this->getAttribute('data');
 
         if ($data) {
-            if (!is_array($data)) {
-                $this->data = json_decode(QUI\Security\Encryption::decrypt($data), true);
+            if (!\is_array($data)) {
+                $this->data = \json_decode(QUI\Security\Encryption::decrypt($data), true);
             } else {
                 $this->data = $data;
             }
 
             // workaround for old data
-            if (!is_array($this->data)) {
-                $this->data = json_decode($data, true);
+            if (!\is_array($this->data)) {
+                $this->data = \json_decode($data, true);
             }
 
             $this->setAttribute('data', $this->data);
         }
 
-        if (!is_array($this->data)) {
+        if (!\is_array($this->data)) {
             $this->data = [];
         }
 
@@ -88,7 +88,7 @@ class Transaction extends QUI\QDOM
      */
     public function getAmount()
     {
-        return floatval($this->getAttribute('amount'));
+        return \floatval($this->getAttribute('amount'));
     }
 
     /**
@@ -138,7 +138,7 @@ class Transaction extends QUI\QDOM
 
         try {
             if ($currency) {
-                $currency = json_decode($currency, true);
+                $currency = \json_decode($currency, true);
 
                 if (isset($currency['code'])) {
                     return QUI\ERP\Currency\Handler::getCurrency($currency['code']);
@@ -177,6 +177,7 @@ class Transaction extends QUI\QDOM
      * @param string|bool $hash
      *
      * @throws Exception
+     * @throws QUI\Database\Exception
      */
     public function refund($amount, $message = '', $hash = false)
     {
@@ -223,7 +224,7 @@ class Transaction extends QUI\QDOM
         }
 
         if ($refunded) {
-            $refundedAmount = floatval($refundedAmount) + floatval($amount);
+            $refundedAmount = \floatval($refundedAmount) + \floatval($amount);
 
             if ($originalAmount < $refundedAmount) {
                 throw new Exception([
@@ -232,7 +233,7 @@ class Transaction extends QUI\QDOM
                 ]);
             }
         } else {
-            if ($originalAmount < floatval($amount)) {
+            if ($originalAmount < \floatval($amount)) {
                 throw new Exception([
                     'quiqqer/payment-transactions',
                     'exception.refund.to.high'
@@ -256,12 +257,12 @@ class Transaction extends QUI\QDOM
      */
     protected function cleanupAmount($value)
     {
-        if (trim($value) === '') {
+        if (\trim($value) === '') {
             return null;
         }
 
-        if (is_float($value)) {
-            return round($value, 8);
+        if (\is_float($value)) {
+            return \round($value, 8);
         }
 
         $localeCode = QUI::getLocale()->getLocalesByLang(
@@ -279,6 +280,8 @@ class Transaction extends QUI\QDOM
      * Change the transaction status
      *
      * @param int $status - STATUS constants -> Handler::STATUS_*
+     *
+     * @throws QUI\Database\Exception
      */
     public function changeStatus($status)
     {
@@ -312,6 +315,8 @@ class Transaction extends QUI\QDOM
 
     /**
      * Change the transaction status to complete
+     *
+     * @throws QUI\Database\Exception
      */
     public function complete()
     {
@@ -337,6 +342,8 @@ class Transaction extends QUI\QDOM
 
     /**
      * Change the transaction status to pending
+     *
+     * @throws QUI\Database\Exception
      */
     public function pending()
     {
@@ -362,6 +369,8 @@ class Transaction extends QUI\QDOM
 
     /**
      * Change the transaction status to error
+     *
+     * @throws QUI\Database\Exception
      */
     public function error()
     {
@@ -426,15 +435,17 @@ class Transaction extends QUI\QDOM
      *
      * This method cant change anything related to the transaction data
      * it will save only the extra data
+     *
+     * @throws QUI\Database\Exception
      */
     public function updateData()
     {
         try {
-            $data = QUI\Security\Encryption::encrypt(json_encode($this->data));
+            $data = QUI\Security\Encryption::encrypt(\json_encode($this->data));
         } catch (QUI\Exception $Exception) {
             QUI\System\Log::writeException($Exception);
 
-            $data = json_encode($this->data);
+            $data = \json_encode($this->data);
         }
 
         QUI::getDataBase()->update(Factory::table(), [

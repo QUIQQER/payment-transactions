@@ -67,44 +67,50 @@ class Factory
         // date
         if (QUI\Utils\Security\Orthos::checkMySqlDateSyntax($date) ||
             QUI\Utils\Security\Orthos::checkMySqlDatetimeSyntax($date)) {
-            $date = strtotime($date);
+            $date = \strtotime($date);
         }
 
-        if (!is_numeric($date)) {
-            $date = time();
+        if (!\is_numeric($date)) {
+            $date = \time();
         }
 
-        if (!is_numeric($date)) {
-            $date = strtotime($date);
+        if (!\is_numeric($date)) {
+            $date = \strtotime($date);
         }
 
-        $date = date('Y-m-d H:i:s', $date);
+        $date = \date('Y-m-d H:i:s', $date);
         $uuid = $User->getId();
 
         if (empty($uuid)) {
             $uuid = QUI::getUsers()->getSystemUser()->getId();
         }
 
-        $data = '';
-
         try {
-            $data = QUI\Security\Encryption::encrypt(json_encode($data));
+            $data = QUI\Security\Encryption::encrypt(\json_encode($data));
         } catch (\Exception $Exception) {
-            $data = json_encode($data);
+            $data = \json_encode($data);
         }
 
-        QUI::getDataBase()->insert(self::table(), [
-            'txid'              => $txId,
-            'hash'              => $hash,
-            'date'              => $date,
-            'uid'               => $uuid,
-            'amount'            => $amount,
-            'currency'          => json_encode($Currency->toArray()),
-            'data'              => $data,
-            'payment'           => $payment,
-            'global_process_id' => $globalProcessId,
-            'status'            => Handler::STATUS_COMPLETE
-        ]);
+        try {
+            QUI::getDataBase()->insert(self::table(), [
+                'txid'              => $txId,
+                'hash'              => $hash,
+                'date'              => $date,
+                'uid'               => $uuid,
+                'amount'            => $amount,
+                'currency'          => \json_encode($Currency->toArray()),
+                'data'              => $data,
+                'payment'           => $payment,
+                'global_process_id' => $globalProcessId,
+                'status'            => Handler::STATUS_COMPLETE
+            ]);
+        } catch (QUI\Database\Exception $Exception) {
+            QUI\System\Log::writeException($Exception);
+
+            throw new QUI\ERP\Accounting\Payments\Transactions\Exception(
+                ['quiqqer/payment-transactions', 'exception.something.went.wrong']
+            );
+        }
 
         $Transaction = Handler::getInstance()->get($txId);
 
