@@ -1,6 +1,8 @@
 ERP Payment Transactions
 ========
 
+![ERP Payment Transactions](bin/images/Readme.png)
+
 The QUIQQER Transaction Module adds a standardized transaction API to QUIQQER.
 QUIQQER Transaction Module is a basic module of the ERP App and extends the complete ERP stack with the Transaction API.
 Modules such as Payment, Order or Invoice access this API and log incoming and outgoing payments. 
