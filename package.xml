@@ -1,0 +1,32 @@
+<quiqqer>
+    <package>
+        <title>
+            <locale group="quiqqer/payment-transactions" var="package.title"/>
+        </title>
+
+        <description>
+            <locale group="quiqqer/payment-transactions" var="package.description"/>
+        </description>
+
+        <image src="URL_OPT_DIR/quiqqer/payment-transactions/bin/images/Logo.png"/>
+
+        <preview>
+            <image src="URL_OPT_DIR/quiqqer/payment-transactions/bin/images/screenshots/preview-1.png"/>
+            <image src="URL_OPT_DIR/quiqqer/payment-transactions/bin/images/screenshots/preview-2.png"/>
+        </preview>
+
+        <support>
+            <email><![CDATA[support@pcsg.de]]></email>
+            <forum><![CDATA[https://community.quiqqer.com]]></forum>
+            <source><![CDATA[https://dev.quiqqer.com/quiqqer/payment-transactions]]></source>
+            <issues><![CDATA[https://dev.quiqqer.com/quiqqer/payment-transactions/issues]]></issues>
+            <wiki><![CDATA[https://dev.quiqqer.com/quiqqer/payment-transactions/wikis/home]]></wiki>
+        </support>
+
+        <copyright>
+            <name><![CDATA[PCSG - Computer & Internet Service OHG]]></name>
+            <license><![CDATA[GPL-3.0+]]></license>
+            <license><![CDATA[PCSG QEL-1.0]]></license>
+        </copyright>
+    </package>
+</quiqqer>

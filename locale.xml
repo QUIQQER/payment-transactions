@@ -5,6 +5,16 @@
             <de><![CDATA[QUIQQER - Transaktionen]]></de>
             <en><![CDATA[QUIQQER - Transactions]]></en>
         </locale>
+        <locale name="package.description">
+            <de><![CDATA[
+            Das QUIQQER-Transaktionsmodul fügt eine standardisierte Transaktions-API zu QUIQQER hinzu.
+            Das QUIQQER-Transaktionsmodul ist ein Basismodul der ERP-Anwendung und erweitert den kompletten ERP-Stack um die Transaktions-API.
+            ]]></de>
+            <en><![CDATA[
+            The QUIQQER Transaction Module adds a standardized transaction API to QUIQQER.
+            QUIQQER Transaction Module is a basic module of the ERP App and extends the complete ERP stack with the Transaction API.
+            ]]></en>
+        </locale>
 
         <locale name="menu.erp.title">
             <de><![CDATA[Shop]]></de>
