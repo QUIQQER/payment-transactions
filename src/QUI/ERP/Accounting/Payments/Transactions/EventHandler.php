@@ -47,6 +47,11 @@ class EventHandler
      */
     public static function onQuiqqerInvoiceTemporaryInvoicePostBegin(InvoiceTemporary $Invoice)
     {
+        // Do not refund if invoice is not a credit note
+        if ($Invoice->getInvoiceType() !== QUI\ERP\Accounting\Invoice\Handler::TYPE_INVOICE_CREDIT_NOTE) {
+            return;
+        }
+
         $refund = $Invoice->getData('refund');
 
         if (!$refund) {
