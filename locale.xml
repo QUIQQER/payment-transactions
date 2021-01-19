@@ -58,6 +58,44 @@
             <de><![CDATA[Zahlung von [amount] - TX-ID: [txid]]]></de>
             <en><![CDATA[Payment off [amount] - TX ID: [txid]]]></en>
         </locale>
+
+        <locale name="address">
+            <de><![CDATA[Adresse]]></de>
+            <en><![CDATA[Address]]></en>
+        </locale>
+        <locale name="company">
+            <de><![CDATA[Firma]]></de>
+            <en><![CDATA[Company]]></en>
+        </locale>
+        <locale name="street">
+            <de><![CDATA[Straße]]></de>
+            <en><![CDATA[Street]]></en>
+        </locale>
+        <locale name="zip">
+            <de><![CDATA[PLZ]]></de>
+            <en><![CDATA[ZIP]]></en>
+        </locale>
+        <locale name="city">
+            <de><![CDATA[Ort]]></de>
+            <en><![CDATA[City]]></en>
+        </locale>
+        <locale name="country">
+            <de><![CDATA[Land]]></de>
+            <en><![CDATA[Country]]></en>
+        </locale>
+        <locale name="salutation">
+            <de><![CDATA[Anrede]]></de>
+            <en><![CDATA[Salutation]]></en>
+        </locale>
+        <locale name="firstname">
+            <de><![CDATA[Vorname]]></de>
+            <en><![CDATA[Firstname]]></en>
+        </locale>
+        <locale name="lastname">
+            <de><![CDATA[Nachname]]></de>
+            <en><![CDATA[Lastname]]></en>
+        </locale>
+
     </groups>
 
     <groups name="quiqqer/payment-transactions" datatype="js">
@@ -138,6 +176,68 @@
             <de><![CDATA[Für diese Zahlung kann keine Rückzahlung durchgeführt werden.]]></de>
             <en><![CDATA[No refund can be made for this payment.]]></en>
         </locale>
+
+        <locale name="controls.AddPayment.tpl.labelDebtorNo">
+            <de><![CDATA[Kunden-Nr.]]></de>
+            <en><![CDATA[Customer no.]]></en>
+        </locale>
+        <locale name="controls.AddPayment.tpl.labelDocumentNo">
+            <de><![CDATA[Beleg-Nr.]]></de>
+            <en><![CDATA[Document no.]]></en>
+        </locale>
+        <locale name="controls.AddPayment.tpl.labelDocumentType">
+            <de><![CDATA[Beleg-Typ]]></de>
+            <en><![CDATA[Document type]]></en>
+        </locale>
+        <locale name="controls.AddPayment.tpl.labelDate">
+            <de><![CDATA[Beleg-Datum]]></de>
+            <en><![CDATA[Document date]]></en>
+        </locale>
+        <locale name="controls.AddPayment.tpl.labelDueDate">
+            <de><![CDATA[Fälligkeit]]></de>
+            <en><![CDATA[Due date]]></en>
+        </locale>
+        <locale name="controls.AddPayment.tpl.labelAmountTotal">
+            <de><![CDATA[Summe]]></de>
+            <en><![CDATA[Sum]]></en>
+        </locale>
+        <locale name="controls.AddPayment.tpl.labelAmountPaid">
+            <de><![CDATA[bereits beglichen]]></de>
+            <en><![CDATA[already paid]]></en>
+        </locale>
+        <locale name="controls.AddPayment.tpl.labelAmountOpen">
+            <de><![CDATA[offen]]></de>
+            <en><![CDATA[open]]></en>
+        </locale>
+        <locale name="controls.AddPayment.tpl.labelPayment">
+            <de><![CDATA[Zahlungsmethode]]></de>
+            <en><![CDATA[Payment method]]></en>
+        </locale>
+        <locale name="controls.AddPayment.tpl.labelPaymentDate">
+            <de><![CDATA[Zahlungsdatum]]></de>
+            <en><![CDATA[Payment date]]></en>
+        </locale>
+        <locale name="controls.AddPayment.tpl.labelTransactionAmount">
+            <de><![CDATA[Eingehender Betrag]]></de>
+            <en><![CDATA[Incoming amount]]></en>
+        </locale>
+        <locale name="controls.AddPayment.tpl.headerDebtor">
+            <de><![CDATA[Kundendaten]]></de>
+            <en><![CDATA[Customer data]]></en>
+        </locale>
+        <locale name="controls.AddPayment.tpl.headerDocument">
+            <de><![CDATA[Beleg]]></de>
+            <en><![CDATA[Document]]></en>
+        </locale>
+        <locale name="controls.AddPayment.tpl.headerPayment">
+            <de><![CDATA[Eingehende Zahlung]]></de>
+            <en><![CDATA[Incoming payment]]></en>
+        </locale>
+        <locale name="controls.AddPaymentWindow.title">
+            <de><![CDATA[Zahlung buchen]]></de>
+            <en><![CDATA[Book payment]]></en>
+        </locale>
+        
     </groups>
 
     <groups name="quiqqer/payment-transactions" datatype="php">
@@ -181,6 +281,11 @@
             <en><![CDATA[
             We're sorry, but something went wrong. Please contact an administrator.
             ]]></en>
+        </locale>
+
+        <locale name="exception.ajax.backend.IncomingPayments.getData.no_provider">
+            <de><![CDATA[Für diesen Beleg-Typ kann z.Z. keine Transaktion erstellt werden. Bitte wenden Sie sich an einen Administrator.]]></de>
+            <en><![CDATA[No transaction can be created for this document type at the moment. Please contact an administrator.]]></en>
         </locale>
     </groups>
 </locales>
