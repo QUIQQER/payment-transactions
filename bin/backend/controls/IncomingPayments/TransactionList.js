@@ -31,9 +31,10 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/IncomingPaymen
         ],
 
         options: {
-            hash    : false,
-            Panel   : false,
-            disabled: false
+            hash      : false,
+            entityType: false,
+            Panel     : false,
+            disabled  : false
         },
 
         initialize: function (options) {
@@ -176,7 +177,7 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/IncomingPaymen
             ], function (AddPaymentWindow) {
                 new AddPaymentWindow({
                     entityId  : self.getAttribute('hash'),
-                    entityType: 'Invoice',
+                    entityType: self.getAttribute('entityType'),
                     events    : {
                         onSubmit: function (Win, data) {
                             self.fireEvent('addTransaction', [data, self]);
