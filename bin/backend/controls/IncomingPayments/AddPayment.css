@@ -1,0 +1,25 @@
+.quiqqer-payment-transactions-add .data-table {
+    float: none !important;
+    height: 100%;
+}
+
+.quiqqer-payment-transactions-add .data-table .field-container-item {
+    width: 140px !important;
+}
+
+.quiqqer-payment-transactions-add-debtor,
+.quiqqer-payment-transactions-add-document {
+    flex-grow: 1;
+}
+
+.quiqqer-payment-transactions-add-debtor {
+    margin: 0 20px 0 0;
+}
+
+.quiqqer-payment-transactions-add-payment {
+    margin: 20px 0 0 0;
+}
+
+.quiqqer-payment-transactions-add-data {
+    display: flex;
+}

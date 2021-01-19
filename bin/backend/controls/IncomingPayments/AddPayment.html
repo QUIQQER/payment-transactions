@@ -1,0 +1,233 @@
+<div class="quiqqer-payment-transactions-add-data">
+    <div class="quiqqer-payment-transactions-add-debtor">
+        <table class="data-table data-table-flexbox">
+            <thead>
+            <tr>
+                <th>{{headerDebtor}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelDebtorNo}}">
+                        {{labelDebtorNo}}
+                    </span>
+                        <span class="field-container-field">
+                            {{debtorNo}}
+                        </span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelAddressSalutation}}">
+                        {{labelAddressSalutation}}
+                    </span>
+                        <span class="field-container-field">
+                            {{addressSalutation}}
+                        </span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelAddressName}}">
+                        {{labelAddressName}}
+                    </span>
+                        <span class="field-container-field">
+                            {{addressName}}
+                        </span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelAddressStreet}}">
+                        {{labelAddressStreet}}
+                    </span>
+                        <span class="field-container-field">
+                            {{addressStreet}}
+                        </span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelAddressCity}}">
+                        {{labelAddressCity}}
+                    </span>
+                        <span class="field-container-field">
+                            {{addressCity}}
+                        </span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelAddressCountry}}">
+                        {{labelAddressCountry}}
+                    </span>
+                        <span class="field-container-field">
+                            {{addressCountry}}
+                        </span>
+                    </label>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="quiqqer-payment-transactions-add-document">
+        <table class="data-table data-table-flexbox">
+            <thead>
+            <tr>
+                <th>{{headerDocument}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelDocumentType}}">
+                        {{labelDocumentType}}
+                    </span>
+                        <span class="field-container-field">
+                            {{documentType}}
+                        </span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelDocumentNo}}">
+                        {{labelDocumentNo}}
+                    </span>
+                        <span class="field-container-field">
+                            {{documentNo}}
+                        </span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelDate}}">
+                        {{labelDate}}
+                    </span>
+                        <span class="field-container-field">
+                            {{date}}
+                        </span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelDueDate}}">
+                        {{labelDueDate}}
+                    </span>
+                        <span class="field-container-field">
+                            {{dueDate}}
+                        </span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelAmountTotal}}">
+                        {{labelAmountTotal}}
+                    </span>
+                        <span class="field-container-field">
+                            {{amountTotal}}
+                        </span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelAmountPaid}}">
+                        {{labelAmountPaid}}
+                    </span>
+                        <span class="field-container-field">
+                            {{amountPaid}}
+                        </span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelAmountOpen}}">
+                        {{labelAmountOpen}}
+                    </span>
+                        <span class="field-container-field">
+                            {{amountOpen}}
+                        </span>
+                    </label>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="quiqqer-payment-transactions-add-payment">
+    <form>
+        <table class="data-table data-table-flexbox">
+            <thead>
+            <tr>
+                <th>{{headerPayment}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelTransactionAmount}}">
+                        {{labelTransactionAmount}}
+                    </span>
+                        <input class="field-container-field"
+                               type="number"
+                               name="amount"
+                               step="0.01"
+                               min="0"
+                               autofocus
+                               required
+                        />
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelPayment}}">
+                        {{labelPayment}}
+                    </span>
+                        <select class="field-container-field" name="payment_method" required>
+
+                        </select>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="field-container">
+                    <span class="field-container-item" title="{{labelPaymentDate}}">
+                        {{labelPaymentDate}}
+                    </span>
+                        <input class="field-container-field" type="date" name="date" required/>
+                    </label>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
