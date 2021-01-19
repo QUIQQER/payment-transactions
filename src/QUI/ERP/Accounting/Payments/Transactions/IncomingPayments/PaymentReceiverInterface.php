@@ -58,6 +58,11 @@ interface PaymentReceiverInterface
      */
     public function getDebtorNo(): string;
 
+    /**
+     * Get date of the document
+     *
+     * @return \DateTime
+     */
     public function getDate(): \DateTime;
 
     /**
@@ -67,12 +72,30 @@ interface PaymentReceiverInterface
      */
     public function getDueDate();
 
+    /**
+     * @return Currency
+     */
     public function getCurrency(): Currency;
 
+    /**
+     * Get the total amount of the document
+     *
+     * @return float
+     */
     public function getAmountTotal(): float;
 
+    /**
+     * Get the total amount still open of the document
+     *
+     * @return float
+     */
     public function getAmountOpen(): float;
 
+    /**
+     * Get the total amount already paid of the document
+     *
+     * @return float
+     */
     public function getAmountPaid(): float;
 
     /**
@@ -81,5 +104,4 @@ interface PaymentReceiverInterface
      * @return PaymentInterface|false
      */
     public function getPaymentMethod();
-
 }
