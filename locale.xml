@@ -237,6 +237,27 @@
             <de><![CDATA[Zahlung buchen]]></de>
             <en><![CDATA[Book payment]]></en>
         </locale>
+
+        <locale name="controls.TransactionList.date">
+            <de><![CDATA[Datum]]></de>
+            <en><![CDATA[Date]]></en>
+        </locale>
+        <locale name="controls.TransactionList.amount">
+            <de><![CDATA[Betrag]]></de>
+            <en><![CDATA[Amount]]></en>
+        </locale>
+        <locale name="controls.TransactionList.paymentMethod">
+            <de><![CDATA[Bezahlmethode]]></de>
+            <en><![CDATA[Payment method]]></en>
+        </locale>
+        <locale name="controls.TransactionList.txid">
+            <de><![CDATA[TX-ID]]></de>
+            <en><![CDATA[TX ID]]></en>
+        </locale>
+        <locale name="controls.TransactionList.btn.postPayment">
+            <de><![CDATA[Zahlung buchen]]></de>
+            <en><![CDATA[Book payment]]></en>
+        </locale>
         
     </groups>
 
