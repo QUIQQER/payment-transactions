@@ -40,8 +40,7 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/IncomingPaymen
         ],
 
         options: {
-            entityId  : false,
-            entityType: false
+            hash: false
         },
 
         initialize: function (options) {
