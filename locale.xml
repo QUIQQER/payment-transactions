@@ -237,6 +237,10 @@
             <de><![CDATA[Zahlung buchen]]></de>
             <en><![CDATA[Book payment]]></en>
         </locale>
+        <locale name="controls.AddPaymentWindow.btn.confirm">
+            <de><![CDATA[Zahlung buchen]]></de>
+            <en><![CDATA[Book payment]]></en>
+        </locale>
 
         <locale name="controls.TransactionList.date">
             <de><![CDATA[Datum]]></de>

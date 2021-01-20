@@ -35,7 +35,11 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/IncomingPaymen
                 icon     : 'fa fa-money',
                 title    : QUILocale.get(lg, 'controls.AddPaymentWindow.title'),
                 maxHeight: 750,
-                maxWidth : 800
+                maxWidth : 800,
+                ok_button: {
+                    text     : QUILocale.get(lg, 'controls.AddPaymentWindow.btn.confirm'),
+                    textimage: 'fa fa-check'
+                }
             });
 
             this.parent(options);
