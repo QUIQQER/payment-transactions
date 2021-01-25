@@ -104,4 +104,11 @@ interface PaymentReceiverInterface
      * @return PaymentInterface|false
      */
     public function getPaymentMethod();
+
+    /**
+     * Get the current payment status of the ERP object
+     *
+     * @return int - One of \QUI\ERP\Constants::PAYMENT_STATUS_*
+     */
+    public function getPaymentStatus();
 }

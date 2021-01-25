@@ -5,7 +5,7 @@
  * @author www.pcsg.de (Henning Leutz)
  * @author www.pcsg.de (Patrick Müller)
  *
- * @event onLoad [self]
+ * @event onLoad [self, canBookPayment]
  * @event onSubmit [TransactionData, self]
  */
 define('package/quiqqer/payment-transactions/bin/backend/controls/IncomingPayments/AddPayment', [
@@ -106,6 +106,29 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/IncomingPaymen
                     headerPayment         : QUILocale.get(lg, 'controls.AddPayment.tpl.headerPayment')
                 })));
 
+                if (!Data.canBookPayment) {
+                    var PaymentContainer = this.$Elm.getElement('.quiqqer-payment-transactions-add-payment');
+
+                    PaymentContainer.set('html', QUILocale.get(lg, 'controls.AddPayment.tpl.noBook_info', {
+                        reason: Data.noBookReason
+                    }));
+
+                    PaymentContainer.addClass('box message-attention');
+                    PaymentContainer.setStyles({
+                        padding    : 10,
+                        'font-size': 14
+                    });
+
+                    //new Element('div', {
+                    //    'class': '',
+                    //    html   :
+                    //}).inject(PaymentContainer);
+
+                    this.fireEvent('load', [this, false]);
+
+                    return;
+                }
+
                 this.$Form = this.$Elm.getElement('form');
 
                 this.$Form.addEvent('submit', function (event) {
@@ -147,7 +170,7 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/IncomingPaymen
                     Amount.value = Data.amountOpenRaw;
                 }
 
-                this.fireEvent('load', [this]);
+                this.fireEvent('load', [this, true]);
             }.bind(this));
         },
 

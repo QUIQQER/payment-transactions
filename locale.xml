@@ -262,7 +262,12 @@
             <de><![CDATA[Zahlung buchen]]></de>
             <en><![CDATA[Book payment]]></en>
         </locale>
-        
+
+        <locale name="controls.AddPayment.tpl.noBook_info" html="true">
+            <de><![CDATA[<b>Für diesen Beleg können aktuell keine Zahlungseingänge gebucht werden!</b><br/><br/>[reason]]]></de>
+            <en><![CDATA[<b>Currently no incoming payments can be booked for this document!</b><br/><br/>[reason]]]></en>
+        </locale>
+
     </groups>
 
     <groups name="quiqqer/payment-transactions" datatype="php">
@@ -311,6 +316,11 @@
         <locale name="exception.ajax.backend.IncomingPayments.getData.no_provider">
             <de><![CDATA[Für diesen Beleg-Typ kann z.Z. keine Transaktion erstellt werden. Bitte wenden Sie sich an einen Administrator.]]></de>
             <en><![CDATA[No transaction can be created for this document type at the moment. Please contact an administrator.]]></en>
+        </locale>
+        
+        <locale name="no_book.reason.debit">
+            <de><![CDATA[Der Beleg hat aktuell den Zahlungsstatus "Lastschrift". Zahlungseingänge können in diesem Fall nur über die "SEPA-Lastschriften"-Verwaltung gebucht werden.]]></de>
+            <en><![CDATA[The document currently has the payment status "Direct Debit". In this case payments can only be booked via the "SEPA direct debits" administration.]]></en>
         </locale>
     </groups>
 </locales>

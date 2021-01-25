@@ -3,6 +3,7 @@
 use QUI\ERP\Accounting\Payments\Transactions\IncomingPayments\Handler;
 use QUI\Utils\Security\Orthos;
 use QUI\ERP\Accounting\Payments\Transactions\Exception;
+use QUI\ERP\Constants as ERPConstants;
 
 /**
  * Get data for new payment transaction
@@ -32,8 +33,19 @@ QUI::$Ajax->registerFunction(
             ]);
         }
 
-        $Locale   = QUI::getLocale();
-        $Currency = $Provider->getCurrency();
+        $Locale         = QUI::getLocale();
+        $Currency       = $Provider->getCurrency();
+        $canBookPayment = true;
+        $noBookReason   = '';
+
+        switch ($Provider->getPaymentStatus()) {
+            case ERPConstants::PAYMENT_STATUS_DEBIT:
+                $canBookPayment = false;
+                $noBookReason   = QUI::getLocale()->get(
+                    'quiqqer/payment-transactions', 'no_book.reason.debit'
+                );
+                break;
+        }
 
         $data = [
             'debtorNo'          => $Provider->getDebtorNo(),
@@ -51,7 +63,9 @@ QUI::$Ajax->registerFunction(
             'amountPaid'        => $Currency->format($Provider->getAmountPaid(), $Locale),
             'amountOpen'        => $Currency->format($Provider->getAmountOpen(), $Locale),
             'amountOpenRaw'     => $Provider->getAmountOpen(),
-            'paymentId'         => $Provider->getPaymentMethod() ? $Provider->getPaymentMethod()->getId() : false
+            'paymentId'         => $Provider->getPaymentMethod() ? $Provider->getPaymentMethod()->getId() : false,
+            'canBookPayment'    => $canBookPayment,
+            'noBookReason'      => $noBookReason
         ];
 
         // Address
