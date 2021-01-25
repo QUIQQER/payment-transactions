@@ -62,9 +62,15 @@ define('package/quiqqer/payment-transactions/bin/backend/controls/IncomingPaymen
                 entityId  : this.getAttribute('entityId'),
                 entityType: this.getAttribute('entityType'),
                 events    : {
-                    onLoad: function () {
+                    onLoad: function (Control, canBookPayment) {
                         this.Loader.hide();
-                        this.$AddPayment.focus();
+
+                        if (canBookPayment) {
+                            this.$AddPayment.focus();
+                            return;
+                        }
+
+                        this.getButton('submit').disable();
                     }.bind(this),
 
                     onSubmit: this.submit
