@@ -42,7 +42,8 @@ QUI::$Ajax->registerFunction(
             case ERPConstants::PAYMENT_STATUS_DEBIT:
                 $canBookPayment = false;
                 $noBookReason   = QUI::getLocale()->get(
-                    'quiqqer/payment-transactions', 'no_book.reason.debit'
+                    'quiqqer/payment-transactions',
+                    'no_book.reason.debit'
                 );
                 break;
         }
